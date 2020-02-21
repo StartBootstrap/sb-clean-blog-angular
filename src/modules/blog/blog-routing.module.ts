@@ -15,14 +15,11 @@ import * as blogGuards from './guards';
 export const ROUTES: Routes = [
     {
         path: '',
-        canActivate: [],
-        component: blogContainers.BlogComponent,
-        children: [
-            {
-                path: '',
-                component: blogContainers.HomeComponent,
-            },
-        ],
+        component: blogContainers.HomeComponent,
+    },
+    {
+        path: ':post',
+        component: blogContainers.PostComponent,
     },
 ];
 

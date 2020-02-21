@@ -1,6 +1,6 @@
 nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
     .container
-        a.navbar-brand(href='index.html') Start Bootstrap
+        a.navbar-brand(routerLink='/') Start Bootstrap
         button.navbar-toggler.navbar-toggler-right(
             type='button',
             data-toggle='collapse',
@@ -10,10 +10,10 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
             aria-label='Toggle navigation'
         )
             | Menu
-            i.fas.fa-bars
+            fa-icon.ml-1([icon]='["fas", "bars"]')
         .collapse.navbar-collapse#navbarResponsive
             ul.navbar-nav.ml-auto
                 li.nav-item
-                    a.nav-link(routerLink='/blog/home') Home
+                    a.nav-link(routerLink='/') Home
                 li.nav-item
-                    a.nav-link(href='/blog/about') About
+                    a.nav-link(href='/about') About

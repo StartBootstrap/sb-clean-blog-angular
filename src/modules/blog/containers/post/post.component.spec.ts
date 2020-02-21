@@ -2,11 +2,11 @@ import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { BlogComponent } from './blog.component';
+import { PostComponent } from './post.component';
 
 @Component({
     template: `
-        <sb-blog [someInput]="someInput" (someFunction)="someFunction($event)"></sb-blog>
+        <sb-post [someInput]="someInput" (someFunction)="someFunction($event)"></sb-post>
     `,
 })
 class TestHostComponent {
@@ -14,19 +14,19 @@ class TestHostComponent {
     // someFunction(event: Event) {}
 }
 
-describe('BlogComponent', () => {
+describe('PostComponent', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let hostComponent: TestHostComponent;
     let hostComponentDE: DebugElement;
     let hostComponentNE: Element;
 
-    let component: BlogComponent;
+    let component: PostComponent;
     let componentDE: DebugElement;
     let componentNE: Element;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestHostComponent, BlogComponent],
+            declarations: [TestHostComponent, PostComponent],
             imports: [NoopAnimationsModule],
             providers: [],
             schemas: [NO_ERRORS_SCHEMA],
@@ -45,6 +45,6 @@ describe('BlogComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-blog')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sbpro-post')).toEqual(jasmine.anything());
     });
 });
