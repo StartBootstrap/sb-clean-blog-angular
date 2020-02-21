@@ -1,0 +1,19 @@
+nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
+    .container
+        a.navbar-brand(href='index.html') Start Bootstrap
+        button.navbar-toggler.navbar-toggler-right(
+            type='button',
+            data-toggle='collapse',
+            data-target='#navbarResponsive',
+            aria-controls='navbarResponsive',
+            aria-expanded='false',
+            aria-label='Toggle navigation'
+        )
+            | Menu
+            i.fas.fa-bars
+        .collapse.navbar-collapse#navbarResponsive
+            ul.navbar-nav.ml-auto
+                li.nav-item
+                    a.nav-link(routerLink='/blog/home') Home
+                li.nav-item
+                    a.nav-link(href='/blog/about') About

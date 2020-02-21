@@ -1,0 +1,19 @@
+header.masthead(
+    [style.background-image]='safeBackgroudImage'
+)
+    .overlay
+    .container
+        .row
+            .col-lg-8.col-md-10.mx-auto
+                ng-container(
+                    *ngIf='siteHeading; else postHeading'
+                )
+                    .site-heading
+                        h1 {{heading}}
+                        span.subheading {{subHeading}}
+
+ng-template(#postHeading)
+    .post-heading
+        h1 {{heading}}
+        h2.subheading {{subHeading}}
+        span.meta {{meta}}
