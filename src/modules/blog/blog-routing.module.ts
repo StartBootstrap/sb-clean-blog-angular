@@ -18,7 +18,12 @@ export const ROUTES: Routes = [
         component: blogContainers.HomeComponent,
     },
     {
+        path: 'about',
+        component: blogContainers.AboutComponent,
+    },
+    {
         path: ':post',
+        canActivate: [blogGuards.PostGuard],
         component: blogContainers.PostComponent,
     },
 ];

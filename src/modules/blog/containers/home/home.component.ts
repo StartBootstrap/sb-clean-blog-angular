@@ -13,14 +13,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     subscription: Subscription = new Subscription();
 
     posts!: Post[];
-    constructor(private blogService: BlogService) {
+    constructor(private blogService: BlogService) {}
+    ngOnInit() {
         this.subscription.add(
             this.blogService.getPosts$().subscribe(posts => {
                 this.posts = posts;
             })
         );
     }
-    ngOnInit() {}
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
