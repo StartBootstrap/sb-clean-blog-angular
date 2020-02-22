@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Post } from '@modules/blog/models';
 import { BlogService } from '@modules/blog/services';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'sb-home',
@@ -9,19 +9,10 @@ import { Subscription } from 'rxjs';
     templateUrl: './home.component.html',
     styleUrls: ['home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-    subscription: Subscription = new Subscription();
-
-    posts!: Post[];
+export class HomeComponent implements OnInit {
+    posts$!: Observable<Post[]>;
     constructor(private blogService: BlogService) {}
     ngOnInit() {
-        this.subscription.add(
-            this.blogService.getPosts$().subscribe(posts => {
-                this.posts = posts;
-            })
-        );
-    }
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.posts$ = this.blogService.getPosts$();
     }
 }

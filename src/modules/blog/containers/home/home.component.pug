@@ -6,7 +6,7 @@ sb-layout-blog
         [siteHeading]='true'
     )
     ng-container(
-        *ngIf='posts'
+        *ngIf='posts$ | async as posts'
     )
         .container
             .row

@@ -14,6 +14,7 @@
         "generate:directive": "./node_modules/.bin/ng generate @sbpro/ng:directive",
         "generate:module": "./node_modules/.bin/ng generate @sbpro/ng:module",
         "generate:service": "./node_modules/.bin/ng generate @sbpro/ng:service",
+        "link": "npm link @start-bootstrap/sb-clean-blog-shared-types",
         "lint:fix": "npm run ng -- lint --fix",
         "lint": "npm run ng -- lint",
         "ng": "node --max_old_space_size=2048 ./node_modules/.bin/ng",

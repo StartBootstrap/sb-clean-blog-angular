@@ -1,7 +1,11 @@
 /* tslint:disable: ordered-imports*/
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ModuleWithProviders } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+import { Config } from '@common/models';
 
 /* Third Party */
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -23,9 +27,32 @@ import * as appCommonServices from './services';
 import * as authServices from '@modules/auth/services';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, ...thirdParty],
+    imports: [CommonModule, RouterModule, HttpClientModule, ...thirdParty],
     providers: [...appCommonServices.services, ...authServices.services, ...appCommonGuards.guards],
     declarations: [...appCommonContainers.containers, ...appCommonComponents.components],
     exports: [...appCommonContainers.containers, ...appCommonComponents.components, ...thirdParty],
 })
-export class AppCommonModule {}
+export class AppCommonModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: AppCommonModule,
+            providers: [
+                ...appCommonServices.services,
+                ...appCommonGuards.guards,
+                ...authServices.services,
+                {
+                    provide: APP_INITIALIZER,
+                    useFactory: configServiceFactory,
+                    multi: true,
+                    deps: [appCommonServices.ConfigService],
+                },
+            ],
+        };
+    }
+}
+
+export function configServiceFactory(
+    configService: appCommonServices.ConfigService
+): () => Promise<Config> {
+    return () => configService.loadConfig();
+}

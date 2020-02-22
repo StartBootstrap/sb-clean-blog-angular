@@ -1,68 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ConfigService } from '@common/services';
 import { Post } from '@modules/blog/models';
+import { ResultsPost } from '@start-bootstrap/sb-clean-blog-shared-types';
 import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class BlogService {
-    constructor() {}
+    constructor(private http: HttpClient, private configService: ConfigService) {}
 
     getPosts$(): Observable<Post[]> {
-        return of([
-            {
-                id: 'postaheading',
-                slug: 'post-a-heading',
-                backgroundImage: 'url("assets/img/post-bg.jpg")',
-                heading: 'How to do a Post A heading in this day and age',
-                subHeading: 'Post A subHeading that needs to be a little longer',
-                meta: 'Post A meta',
-                body: 'Post A body',
-            },
-            {
-                id: 'postbheading',
-                slug: 'post-b-heading',
-                backgroundImage: 'url("assets/img/post-bg.jpg")',
-                heading: 'How to do a Post B heading in this day and age',
-                subHeading: 'Post B subHeading that needs to be a little longer',
-                meta: 'Post B meta',
-                body: 'Post B body',
-            },
-            {
-                id: 'postcheading',
-                slug: 'post-c-heading',
-                backgroundImage: 'url("assets/img/post-bg.jpg")',
-                heading: 'How to do a Post C heading in this day and age',
-                subHeading: 'Post C subHeading that needs to be a little longer',
-                meta: 'Post C meta',
-                body: 'Post C body',
-            },
-            {
-                id: 'postdheading',
-                slug: 'post-d-heading',
-                backgroundImage: 'url("assets/img/post-bg.jpg")',
-                heading: 'How to do a Post D heading in this day and age',
-                subHeading: 'Post D subHeading that needs to be a little longer',
-                meta: 'Post D meta',
-                body: 'Post D body',
-            },
-            {
-                id: 'posteheading',
-                slug: 'post-e-heading',
-                backgroundImage: 'url("assets/img/post-bg.jpg")',
-                heading: 'How to do a Post E heading in this day and age',
-                subHeading: 'Post E subHeading that needs to be a little longer',
-                meta: 'Post E meta',
-                body: 'Post E body',
-            },
-            {
-                id: 'postfheading',
-                slug: 'post-f-heading',
-                backgroundImage: 'url("assets/img/post-bg.jpg")',
-                heading: 'How to do a Post F heading in this day and age',
-                subHeading: 'Post F subHeading that needs to be a little longer',
-                meta: 'Post F meta',
-                body: 'Post F body',
-            },
-        ]);
+        return this.http
+            .get<ResultsPost[]>(`${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`)
+            .pipe(
+                map(posts =>
+                    posts.map<Post>(post => {
+                        return post;
+                    })
+                ),
+                catchError((error: Error) => {
+                    console.log(error);
+                    // Have to return this in order to not freeze app when redirecting from interceptor
+                    return [[]];
+                })
+            );
     }
 
     getPost$(postSlug: string): Observable<Post | null> {
