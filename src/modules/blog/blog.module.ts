@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MarkdownModule } from 'ngx-markdown';
+
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
@@ -28,6 +30,7 @@ import * as blogServices from './services';
         ReactiveFormsModule,
         FormsModule,
         HttpClientModule,
+        MarkdownModule.forChild(),
         AppCommonModule,
         NavigationModule,
     ],

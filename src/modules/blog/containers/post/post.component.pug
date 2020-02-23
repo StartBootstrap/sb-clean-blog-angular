@@ -7,3 +7,10 @@ sb-layout-blog(
         [subHeading]='post.subHeading',
         [meta]='post.meta'
     )
+
+    article
+        .container
+            .row
+                .col-lg-8.col-md-10.mx-auto
+                    markdown(ngPreserveWhitespaces)
+                        | {{post.body}}
