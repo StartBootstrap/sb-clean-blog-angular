@@ -45,9 +45,6 @@ export class AppCommonModule {
         return {
             ngModule: AppCommonModule,
             providers: [
-                ...appCommonServices.services,
-                ...appCommonGuards.guards,
-                ...authServices.services,
                 {
                     provide: APP_INITIALIZER,
                     useFactory: configServiceFactory,

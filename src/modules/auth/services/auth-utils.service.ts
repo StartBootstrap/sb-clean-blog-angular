@@ -2,14 +2,20 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UtilService } from '@common/services';
 import { Token } from '@start-bootstrap/sb-clean-blog-shared-types';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 
 import { User } from '../models';
+
+const _isLoggedIn$ = new BehaviorSubject(false);
 
 @Injectable()
 export class AuthUtilsService {
     jwtHelperService: JwtHelperService = new JwtHelperService();
     constructor(private util: UtilService) {}
+
+    isLoggedIn$(): Observable<boolean> {
+        return _isLoggedIn$;
+    }
 
     bearerToken(): string | false {
         const token = this._jwtIsValid();
@@ -17,6 +23,10 @@ export class AuthUtilsService {
             return `bearer ${token}`;
         }
         return false;
+    }
+
+    checkToken() {
+        this._jwtIsValid();
     }
 
     checkToken$(): Observable<string> {
@@ -69,6 +79,7 @@ export class AuthUtilsService {
         const token = this.util.localStorage.getItem('sb-clean-blog|token');
 
         if (!token) {
+            _isLoggedIn$.next(false);
             return false;
         }
 
@@ -76,9 +87,11 @@ export class AuthUtilsService {
 
         if (expired) {
             this.util.localStorage.removeItem('sb-clean-blog|token');
+            _isLoggedIn$.next(false);
             return false;
         }
 
+        _isLoggedIn$.next(true);
         return token;
     }
 }

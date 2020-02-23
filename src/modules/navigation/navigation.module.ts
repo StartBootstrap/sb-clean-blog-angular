@@ -1,5 +1,5 @@
 /* tslint:disable: ordered-imports*/
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -35,4 +35,6 @@ import * as navigationServices from './services';
         ...appCommonLayouts.layouts,
     ],
 })
-export class NavigationModule {}
+export class NavigationModule {
+    constructor(private navigationServices: navigationServices.NavigationService) {}
+}

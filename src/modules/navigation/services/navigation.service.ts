@@ -9,6 +9,7 @@ import { SBRouteData } from '../models';
 export class NavigationService {
     _routeData$ = new BehaviorSubject({} as SBRouteData);
     _currentURL$ = new BehaviorSubject('');
+    _currentComponent$ = new BehaviorSubject('');
 
     constructor(public route: ActivatedRoute, public router: Router) {
         this.router.events
@@ -18,8 +19,11 @@ export class NavigationService {
                 while (snapshot.firstChild !== null) {
                     snapshot = snapshot.firstChild;
                 }
+                console.log(snapshot);
+
                 this._routeData$.next(snapshot.data as SBRouteData);
                 this._currentURL$.next(router.url);
+                this._currentComponent$.next((snapshot.component as { name: string }).name);
             });
     }
 
@@ -29,5 +33,9 @@ export class NavigationService {
 
     currentURL$(): Observable<string> {
         return this._currentURL$;
+    }
+
+    currentComponent$(): Observable<string> {
+        return this._currentComponent$;
     }
 }
