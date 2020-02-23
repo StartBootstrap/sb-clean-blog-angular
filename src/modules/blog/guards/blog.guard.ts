@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class PostGuard implements CanActivate {
-    constructor(private blogService: BlogService, private router: Router) {}
+    constructor(private blogService: BlogService) {}
     canActivate(_next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this._canActivate(_next, state);
     }
@@ -17,7 +17,6 @@ export class PostGuard implements CanActivate {
                 if (post) {
                     return of(true);
                 }
-                this.router.navigate(['/error/404']);
                 return of(false);
             })
         );

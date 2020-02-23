@@ -1,5 +1,9 @@
 @import "variables.scss";
 @import "mixins.scss";
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap.scss";
+
 @import "global.scss";
 @import "navbar.scss";
 @import "masthead.scss";

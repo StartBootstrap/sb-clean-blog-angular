@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfigService } from '@common/services';
 import { Post } from '@modules/blog/models';
 import { ResultsPost } from '@start-bootstrap/sb-clean-blog-shared-types';
@@ -8,7 +9,11 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class BlogService {
-    constructor(private http: HttpClient, private configService: ConfigService) {}
+    constructor(
+        private http: HttpClient,
+        private configService: ConfigService,
+        private router: Router
+    ) {}
 
     getPosts$(): Observable<Post[]> {
         return this.http
@@ -40,6 +45,7 @@ export class BlogService {
                 map(post => post as Post),
                 catchError((error: Error) => {
                     console.log(error);
+                    this.router.navigate(['/error/404']);
                     // Have to return this in order to not freeze app when redirecting from interceptor
                     return [];
                 })
