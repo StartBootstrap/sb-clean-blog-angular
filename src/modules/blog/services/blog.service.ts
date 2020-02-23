@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from '@common/services';
 import { Post } from '@modules/blog/models';
 import { ResultsPost } from '@start-bootstrap/sb-clean-blog-shared-types';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class BlogService {
             .get<ResultsPost[]>(`${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`)
             .pipe(
                 map(posts =>
-                    posts.map<Post>(post => {
+                    (posts as Post[]).map(post => {
                         return post;
                     })
                 ),
@@ -28,17 +28,21 @@ export class BlogService {
     }
 
     getPost$(postSlug: string): Observable<Post | null> {
-        if (postSlug !== 'post-a-heading') {
-            return of(null);
-        }
-        return of({
-            id: 'postaheading',
-            slug: 'post-a-heading',
-            backgroundImage: 'url("assets/img/post-bg.jpg")',
-            heading: 'How to do a Post A heading in this day and age',
-            subHeading: 'Post A subHeading that needs to be a little longer',
-            meta: 'Post A meta',
-            body: 'Post A body',
-        });
+        const params = new HttpParams().set('findBy', 'slug');
+        return this.http
+            .get<ResultsPost>(
+                `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${postSlug}`,
+                {
+                    params,
+                }
+            )
+            .pipe(
+                map(post => post as Post),
+                catchError((error: Error) => {
+                    console.log(error);
+                    // Have to return this in order to not freeze app when redirecting from interceptor
+                    return [];
+                })
+            );
     }
 }
