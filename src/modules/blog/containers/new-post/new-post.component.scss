@@ -1,6 +1,12 @@
 @import 'styles/variables.scss';
 
-#layoutAuthentication {
+
+.full-background {
     background-color: $background-grey;
+    width: 100vw;
     height: 100vh;
+}
+
+#newPostForm {
+    margin-top: 100px;
 }

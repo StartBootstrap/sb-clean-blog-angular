@@ -22,6 +22,10 @@ export const ROUTES: Routes = [
         component: blogContainers.AboutComponent,
     },
     {
+        path: 'new',
+        component: blogContainers.NewPostComponent,
+    },
+    {
         path: ':post',
         canActivate: [blogGuards.PostGuard],
         component: blogContainers.PostComponent,

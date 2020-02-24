@@ -1,0 +1,32 @@
+<sb-top-nav></sb-top-nav>
+<div class="full-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form id="newPostForm" [formGroup]="newPostForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <input class="form-control form-control-solid py-4" id="headingInput" data-cy="headingInput" type="text" placeholder="Heading" formControlName="heading" [class.is-valid]="headingControlValid" [class.is-invalid]="headingControlInvalid" />
+                        <div class="invalid-feedback" *ngIf='headingControl.hasError("required")'>Heading required.</div>
+                        <div class="invalid-feedback" *ngIf='headingControl.hasError("heading")'>Heading is not valid.</div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-solid py-4" id="subHeadingInput" data-cy="subHeadingInput" type="text" placeholder="Subheading" formControlName="subHeading" [class.is-valid]="subHeadingControlValid" [class.is-invalid]="subHeadingControlInvalid" />
+                        <div class="invalid-feedback" *ngIf='subHeadingControl.hasError("required")'>Subheading required.</div>
+                        <div class="invalid-feedback" *ngIf='subHeadingControl.hasError("subHeading")'>Subheading is not valid.</div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-solid py-4" id="backgroundImageInput" data-cy="backgroundImageInput" type="text" placeholder="Background Image" formControlName="backgroundImage" [class.is-valid]="backgroundImageControlValid" [class.is-invalid]="backgroundImageControlInvalid" />
+                        <div class="invalid-feedback" *ngIf='backgroundImageControl.hasError("required")'>Background Image required.</div>
+                        <div class="invalid-feedback" *ngIf='backgroundImageControl.hasError("backgroundImage")'>Background Image is not valid.</div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-solid py-4" id="bodyInput" data-cy="bodyInput" type="text" placeholder="Body" formControlName="body" [class.is-valid]="bodyControlValid" [class.is-invalid]="bodyControlInvalid" />
+                        <div class="invalid-feedback" *ngIf='bodyControl.hasError("required")'>Body required.</div>
+                        <div class="invalid-feedback" *ngIf='bodyControl.hasError("body")'>Body is not valid.</div>
+                    </div>
+                    <div class="form-group d-flex align-items-center justify-content-between"><button class="btn btn-primary" data-cy="createButton" type="submit" [disabled]="newPostForm.invalid">Create</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

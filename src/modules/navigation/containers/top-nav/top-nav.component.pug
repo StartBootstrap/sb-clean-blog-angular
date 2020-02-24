@@ -17,11 +17,13 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
                     a.nav-link(routerLink='/') Home
                 li.nav-item
                     a.nav-link(routerLink='/about') About
+                    
                 li.nav-item(
                     *ngIf='isLoggedIn && isOnPost'
                 )
                     a.nav-link(routerLink='/about') Edit
+
                 li.nav-item(
                     *ngIf='isLoggedIn'
                 )
-                    a.nav-link(routerLink='/about') New Post
+                    a.nav-link(routerLink='/new') New Post
