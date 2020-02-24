@@ -1,13 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '@modules/auth/services';
-
-// slug = 'TEST_SLUG';
-// backgroundImage = 'TEST_BACKGROUND_IMAGE';
-// heading = 'TEST_HEADING';
-// subHeading = 'TEST_SUB_HEADING';
-// meta = 'TEST_META';
-// body = 'TEST_BODY';
+import { BlogService } from '@modules/blog/services';
 
 @Component({
     selector: 'sb-new-post',
@@ -25,17 +18,14 @@ export class NewPostComponent implements OnInit {
 
     // Random unsplash https://source.unsplash.com/1900x1200/
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {}
+    constructor(private fb: FormBuilder, private blogService: BlogService) {}
     ngOnInit() {}
 
     onSubmit() {
         if (this.newPostForm.status === 'VALID') {
-            // this.authService
-            //     .login$({
-            //         email: this.newPostForm.value.email,
-            //         password: this.newPostForm.value.password,
-            //     })
-            //     .subscribe(response => console.log(response));
+            this.blogService
+                .createPost$(this.newPostForm.value)
+                .subscribe(response => console.log(response));
         }
 
         for (const key in this.newPostForm.controls) {

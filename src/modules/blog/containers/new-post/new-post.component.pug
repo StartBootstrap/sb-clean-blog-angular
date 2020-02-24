@@ -57,14 +57,6 @@ sb-top-nav
                             [class.is-valid]='bodyControlValid',
                             [class.is-invalid]='bodyControlInvalid'
                         )
-                        //- input#bodyInput.form-control.form-control-solid.py-4(
-                        //-     data-cy='bodyInput',
-                        //-     type='text',
-                        //-     placeholder='Body',
-                        //-     formControlName='body',
-                        //-     [class.is-valid]='bodyControlValid',
-                        //-     [class.is-invalid]='bodyControlInvalid'
-                        //- )
                         .invalid-feedback(*ngIf='bodyControl.hasError("required")')
                             | Body required.
                         .invalid-feedback(*ngIf='bodyControl.hasError("body")')
@@ -76,13 +68,6 @@ sb-top-nav
                             type='submit',
                             [disabled]='newPostForm.invalid'
                         ) Create
-
-                //- textarea#newPostMD.p-2(
-                //-     autosize,
-                //-     [(ngModel)]='markdown'
-                //- )
-                
-                //- markdown#newPostPreview.p-4([data]='markdown')
                 
                 h2 Preview
 
