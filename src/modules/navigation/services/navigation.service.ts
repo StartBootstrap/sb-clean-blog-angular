@@ -19,7 +19,6 @@ export class NavigationService {
                 while (snapshot.firstChild !== null) {
                     snapshot = snapshot.firstChild;
                 }
-                console.log(snapshot);
 
                 this._routeData$.next(snapshot.data as SBRouteData);
                 this._currentURL$.next(router.url);

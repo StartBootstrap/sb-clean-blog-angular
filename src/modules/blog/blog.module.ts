@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MarkdownModule } from 'ngx-markdown';
+import { AutosizeModule } from 'ngx-autosize';
 
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
@@ -31,6 +32,7 @@ import * as blogServices from './services';
         FormsModule,
         HttpClientModule,
         MarkdownModule.forChild(),
+        AutosizeModule,
         AppCommonModule,
         NavigationModule,
     ],

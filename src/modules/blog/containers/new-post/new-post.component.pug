@@ -38,7 +38,7 @@ sb-top-nav
                         input#backgroundImageInput.form-control.form-control-solid.py-4(
                             data-cy='backgroundImageInput',
                             type='text',
-                            placeholder='Background Image',
+                            placeholder='Background Image Url',
                             formControlName='backgroundImage',
                             [class.is-valid]='backgroundImageControlValid',
                             [class.is-invalid]='backgroundImageControlInvalid'
@@ -49,14 +49,22 @@ sb-top-nav
                             | Background Image is not valid.
 
                     .form-group
-                        input#bodyInput.form-control.form-control-solid.py-4(
+                        textarea#bodyInput.p-4(
+                            autosize,
                             data-cy='bodyInput',
-                            type='text',
                             placeholder='Body',
                             formControlName='body',
                             [class.is-valid]='bodyControlValid',
                             [class.is-invalid]='bodyControlInvalid'
                         )
+                        //- input#bodyInput.form-control.form-control-solid.py-4(
+                        //-     data-cy='bodyInput',
+                        //-     type='text',
+                        //-     placeholder='Body',
+                        //-     formControlName='body',
+                        //-     [class.is-valid]='bodyControlValid',
+                        //-     [class.is-invalid]='bodyControlInvalid'
+                        //- )
                         .invalid-feedback(*ngIf='bodyControl.hasError("required")')
                             | Body required.
                         .invalid-feedback(*ngIf='bodyControl.hasError("body")')
@@ -68,3 +76,14 @@ sb-top-nav
                             type='submit',
                             [disabled]='newPostForm.invalid'
                         ) Create
+
+                //- textarea#newPostMD.p-2(
+                //-     autosize,
+                //-     [(ngModel)]='markdown'
+                //- )
+                
+                //- markdown#newPostPreview.p-4([data]='markdown')
+                
+                h2 Preview
+
+                markdown#newPostPreview.p-4([data]='bodyControl.value')

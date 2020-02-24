@@ -36,7 +36,6 @@ import * as authServices from '@modules/auth/services';
         ...thirdParty,
         MarkdownModule.forRoot({ sanitize: SecurityContext.NONE }),
     ],
-    providers: [...appCommonServices.services, ...authServices.services, ...appCommonGuards.guards],
     declarations: [...appCommonContainers.containers, ...appCommonComponents.components],
     exports: [...appCommonContainers.containers, ...appCommonComponents.components, ...thirdParty],
 })
@@ -45,6 +44,9 @@ export class AppCommonModule {
         return {
             ngModule: AppCommonModule,
             providers: [
+                ...appCommonServices.services,
+                ...authServices.services,
+                ...appCommonGuards.guards,
                 {
                     provide: APP_INITIALIZER,
                     useFactory: configServiceFactory,

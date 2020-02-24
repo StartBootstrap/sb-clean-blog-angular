@@ -31,3 +31,21 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
+
+
+// Override Bootstrap code variables
+
+$code-font-size: 1rem !default;
+$code-font-size-sm: 85% !default;
+$pre-color: $gray-600 !default;
+
+// Code variables
+$code-font-family: Roboto Mono, monospace !default;
+
+// Variables for <pre> element
+$pre-bg: $gray-100;
+$pre-line-height: 1.5rem;
+$pre-margin-x: 0;
+$pre-margin-y: 0.5rem;
+$pre-padding-x: 1rem;
+$pre-padding-y: 1.5rem;

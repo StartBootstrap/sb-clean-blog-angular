@@ -23,6 +23,8 @@ export class NewPostComponent implements OnInit {
         body: ['', [Validators.required]],
     });
 
+    // Random unsplash https://source.unsplash.com/1900x1200/
+
     constructor(private fb: FormBuilder, private authService: AuthService) {}
     ngOnInit() {}
 
