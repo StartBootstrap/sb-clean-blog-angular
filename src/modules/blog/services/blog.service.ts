@@ -3,9 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigService } from '@common/services';
 import { Post } from '@modules/blog/models';
-import { CreatePostPayload, ResultsPost } from '@start-bootstrap/sb-clean-blog-shared-types';
+import {
+    CreatePostPayload,
+    ResultsPost,
+    UpdatePostPayload,
+} from '@start-bootstrap/sb-clean-blog-shared-types';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class BlogService {
@@ -52,38 +56,37 @@ export class BlogService {
             );
     }
 
-    createPost$(payload: CreatePostPayload): Observable<undefined | Error> {
+    createPost$(payload: CreatePostPayload): Observable<Post | Error> {
         return this.http
-            .post<undefined>(
+            .post<ResultsPost>(
                 `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`,
                 payload
             )
             .pipe(
+                tap(response => this.router.navigate([`/${response.slug}`])),
+                map(post => post as Post),
                 catchError((error: Error) => {
                     console.log(error);
-                    this.router.navigate(['/error/401']);
+                    this.router.navigate([`/error/${error.status}`]);
                     // Have to return this in order to not freeze app when redirecting from interceptor
                     return [error];
                 })
             );
     }
 
-    // createGroup$(
-    //     orgID: UUID,
-    //     payload: OrganizationCreateGroupPayload
-    // ): Observable<undefined | Error> {
-    //     return this.http
-    //         .post<undefined>(
-    //             `${this.configService.config.sbproNodeURL}/api/latest/organization/${orgID}/groups`,
-    //             payload
-    //         )
-    //         .pipe(
-    //             tap(() => this.userService.refreshUser()),
-    //             catchError((error: Error) => {
-    //                 console.log(error);
-    //                 // Have to return this in order to not freeze app when redirecting from interceptor
-    //                 return [error];
-    //             })
-    //         );
-    // }
+    updatePost$(id: UUID, payload: UpdatePostPayload): Observable<undefined | Error> {
+        return this.http
+            .put<undefined>(
+                `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${id}`,
+                payload
+            )
+            .pipe(
+                catchError((error: Error) => {
+                    console.log(error);
+                    this.router.navigate([`/error/${error.status}`]);
+                    // Have to return this in order to not freeze app when redirecting from interceptor
+                    return [error];
+                })
+            );
+    }
 }

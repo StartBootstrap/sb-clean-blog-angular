@@ -11,6 +11,11 @@ declare global {
     type HASH = string;
     type ISOLang = string;
 
+
+    interface Error {
+        status: number;
+    }
+    
 }
 
 export {}
