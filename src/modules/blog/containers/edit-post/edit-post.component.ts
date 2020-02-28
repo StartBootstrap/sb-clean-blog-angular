@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-    selector: 'sb-post',
+    selector: 'sb-edit-post',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './post.component.html',
-    styleUrls: ['post.component.scss'],
+    templateUrl: './edit-post.component.html',
+    styleUrls: ['edit-post.component.scss'],
 })
-export class PostComponent implements OnInit {
+export class EditPostComponent implements OnInit {
     post$!: Observable<Post | null>;
 
     constructor(private route: ActivatedRoute, private blogService: BlogService) {}

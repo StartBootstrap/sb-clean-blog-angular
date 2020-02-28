@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Post } from '@modules/blog/models';
 import { BlogService } from '@modules/blog/services';
 
 @Component({
@@ -9,6 +10,7 @@ import { BlogService } from '@modules/blog/services';
     styleUrls: ['post-form.component.scss'],
 })
 export class PostFormComponent implements OnInit {
+    @Input() post?: Post;
     newPostForm = this.fb.group({
         heading: ['', [Validators.required]],
         subHeading: ['', [Validators.required]],
@@ -19,13 +21,28 @@ export class PostFormComponent implements OnInit {
     // Random unsplash https://source.unsplash.com/1900x1200/
 
     constructor(private fb: FormBuilder, private blogService: BlogService) {}
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.post) {
+            this.newPostForm.setValue({
+                heading: this.post.heading,
+                subHeading: this.post.subHeading,
+                backgroundImage: this.post.backgroundImage.replace(/^url\("(.+)"\)/, '$1'),
+                body: this.post.body,
+            });
+        }
+    }
 
     onSubmit() {
         if (this.newPostForm.status === 'VALID') {
-            this.blogService
-                .createPost$(this.newPostForm.value)
-                .subscribe(response => console.log(response));
+            if (!this.post) {
+                this.blogService
+                    .createPost$(this.newPostForm.value)
+                    .subscribe(response => console.log(response));
+            } else {
+                this.blogService
+                    .updatePost$(this.post.id, this.newPostForm.value)
+                    .subscribe(response => console.log(response));
+            }
         }
 
         for (const key in this.newPostForm.controls) {

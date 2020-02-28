@@ -57,10 +57,17 @@ form#newPostForm([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
 
     .form-group.d-flex.align-items-center.justify-content-between
         button.btn.btn-primary(
+            *ngIf='!post',
             data-cy='createButton',
             type='submit',
             [disabled]='newPostForm.invalid'
         ) Create
+        button.btn.btn-primary(
+            *ngIf='post',
+            data-cy='updateButton',
+            type='submit',
+            [disabled]='newPostForm.invalid'
+        ) Update
 
 h2 Preview
 

@@ -21,7 +21,9 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
                 li.nav-item(
                     *ngIf='isLoggedIn && isOnPost'
                 )
-                    a.nav-link(routerLink='/about') Edit
+                    a.nav-link.pointer(
+                        (click)='editPost()'
+                    ) Edit
 
                 li.nav-item(
                     *ngIf='isLoggedIn'

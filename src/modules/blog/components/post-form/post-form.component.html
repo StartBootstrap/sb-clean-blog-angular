@@ -19,7 +19,7 @@
         <div class="invalid-feedback" *ngIf='bodyControl.hasError("required")'>Body required.</div>
         <div class="invalid-feedback" *ngIf='bodyControl.hasError("body")'>Body is not valid.</div>
     </div>
-    <div class="form-group d-flex align-items-center justify-content-between"><button class="btn btn-primary" data-cy="createButton" type="submit" [disabled]="newPostForm.invalid">Create</button></div>
+    <div class="form-group d-flex align-items-center justify-content-between"><button class="btn btn-primary" *ngIf="!post" data-cy="createButton" type="submit" [disabled]="newPostForm.invalid">Create</button><button class="btn btn-primary" *ngIf="post" data-cy="updateButton" type="submit" [disabled]="newPostForm.invalid">Update</button></div>
 </form>
 <h2>Preview</h2>
 <markdown class="p-4" id="newPostPreview" [data]="bodyControl.value"></markdown>

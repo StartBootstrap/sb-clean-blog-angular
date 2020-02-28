@@ -9,5 +9,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 export class NewPostComponent implements OnInit {
     constructor() {}
     ngOnInit() {}
-
 }

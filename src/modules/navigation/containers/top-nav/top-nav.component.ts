@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthUtilsService } from '@modules/auth/services';
 import { NavigationService } from '@modules/navigation/services';
 import { Subscription } from 'rxjs';
@@ -15,7 +16,9 @@ export class TopNavComponent implements OnInit, OnDestroy {
 
     constructor(
         private navigationService: NavigationService,
-        private authUtilsService: AuthUtilsService
+        private authUtilsService: AuthUtilsService,
+        private route: ActivatedRoute,
+        private router: Router,
     ) {}
     ngOnInit() {
         this.subscription.add(
@@ -33,5 +36,9 @@ export class TopNavComponent implements OnInit, OnDestroy {
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    editPost() {
+        this.router.navigateByUrl(`/edit/${this.route.snapshot.params.post}`);
     }
 }
