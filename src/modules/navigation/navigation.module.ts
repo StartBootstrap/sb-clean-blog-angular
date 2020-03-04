@@ -35,7 +35,7 @@ import * as navigationServices from './services';
     ],
 })
 export class NavigationModule {
-    constructor(private navigationServices: navigationServices.NavigationService) {}
+    constructor(private navServices: navigationServices.NavigationService) {}
 
     static forRoot(): ModuleWithProviders {
         return {

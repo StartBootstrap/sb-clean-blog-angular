@@ -14,3 +14,7 @@ sb-layout-blog(
                 .col-lg-8.col-md-10.mx-auto
                     markdown(ngPreserveWhitespaces)
                         | {{post.body}}
+                    button.btn.btn-primary(
+                        type='button',
+                        (click)='editPost()'
+                    ) Edit Post
