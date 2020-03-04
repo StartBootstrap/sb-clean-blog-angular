@@ -76,4 +76,6 @@ form#newPostForm.mb-5([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
 
 h2.text-white.mb-4 Post Preview
 
-markdown#newPostPreview.p-4([data]='bodyControl.value')
+markdown#newPostPreview.p-4.mb-4([data]='bodyControl.value')
+
+button.btn.btn-danger.mb-5 Delete Post
