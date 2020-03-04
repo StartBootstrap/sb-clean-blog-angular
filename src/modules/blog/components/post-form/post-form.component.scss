@@ -1,7 +1,7 @@
 @import 'styles/variables.scss';
 
 #newPostForm {
-    margin-top: 100px;
+    margin-top: 10rem;
 }
 
 #bodyInput {
@@ -11,5 +11,11 @@
 #newPostPreview {
     width: 100%;
     display: block;
-    background-color: white;
+    background-color: $white;
+    border-radius: $border-radius;
+    margin-bottom: 10rem;
+}
+
+.form-text {
+    font-size: 0.8rem;
 }

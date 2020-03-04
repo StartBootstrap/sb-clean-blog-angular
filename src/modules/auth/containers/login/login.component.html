@@ -2,8 +2,9 @@
     ><div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-5">
+                <h5 class="text-white text-center mt-5">Enter admin password</h5>
                 <form class="form-inline justify-content-between" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <input class="form-control py-4 mr-2 my-2 flex" id="inputPassword" data-cy="passwordInput" type="password" formControlName="password" [class.is-valid]="passwordControlValid" [class.is-invalid]="passwordControlInvalid" /><button class="btn btn-primary flex" data-cy="loginButton" type="submit" [disabled]="loginForm.invalid">Login</button>
+                    <input class="form-control py-4 mr-2 my-2" id="inputPassword" data-cy="passwordInput" type="password" formControlName="password" [class.is-valid]="passwordControlValid" [class.is-invalid]="passwordControlInvalid" /><button class="btn btn-primary" data-cy="loginButton" type="submit" [disabled]="loginForm.invalid">Login</button>
                     <div class="invalid-feedback" *ngIf='passwordControl.hasError("required")'>Password required.</div>
                     <div class="invalid-feedback" *ngIf='passwordControl.hasError("minlength")'>Password must be at least 8 characters.</div>
                 </form>

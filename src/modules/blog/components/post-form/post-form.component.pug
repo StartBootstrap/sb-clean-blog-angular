@@ -1,59 +1,64 @@
-form#newPostForm([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
+form#newPostForm.mb-5([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
+    h2.text-white.mb-4 Post Content
     .form-group
-        input#headingInput.form-control.form-control-solid.py-4(
+        input#headingInput.form-control.py-4(
             data-cy='headingInput',
             type='text',
-            placeholder='Heading',
+            placeholder='Post heading',
             formControlName='heading',
             [class.is-valid]='headingControlValid',
             [class.is-invalid]='headingControlInvalid'
         )
         .invalid-feedback(*ngIf='headingControl.hasError("required")')
-            | Heading required.
+            | Heading required
         .invalid-feedback(*ngIf='headingControl.hasError("heading")')
-            | Heading is not valid.
+            | Heading is not valid
 
     .form-group
-        input#subHeadingInput.form-control.form-control-solid.py-4(
+        input#subHeadingInput.form-control.py-4(
             data-cy='subHeadingInput',
             type='text',
-            placeholder='Subheading',
+            placeholder='Post subheading',
             formControlName='subHeading',
             [class.is-valid]='subHeadingControlValid',
             [class.is-invalid]='subHeadingControlInvalid'
         )
         .invalid-feedback(*ngIf='subHeadingControl.hasError("required")')
-            | Subheading required.
+            | Subheading required
         .invalid-feedback(*ngIf='subHeadingControl.hasError("subHeading")')
-            | Subheading is not valid.
+            | Subheading is not valid
 
     .form-group
-        input#backgroundImageInput.form-control.form-control-solid.py-4(
+        input#backgroundImageInput.form-control.py-4(
             data-cy='backgroundImageInput',
             type='text',
-            placeholder='Background Image Url',
+            placeholder='Post background image (enter a URL)',
             formControlName='backgroundImage',
             [class.is-valid]='backgroundImageControlValid',
             [class.is-invalid]='backgroundImageControlInvalid'
         )
+        .form-text.text-white-50 Use an image URL (ex. https://source.unsplash.com/WLUHO9A_xik/1600x900)
         .invalid-feedback(*ngIf='backgroundImageControl.hasError("required")')
-            | Background Image required.
+            | Background image required
         .invalid-feedback(*ngIf='backgroundImageControl.hasError("backgroundImage")')
-            | Background Image is not valid.
+            | Background image is not valid
 
     .form-group
-        textarea#bodyInput.p-4(
+        textarea.form-control.py-3#bodyInput(
             autosize,
             data-cy='bodyInput',
-            placeholder='Body',
+            placeholder='Post body text (markdown supported)',
             formControlName='body',
             [class.is-valid]='bodyControlValid',
             [class.is-invalid]='bodyControlInvalid'
         )
+        .form-text.text-white-50
+            fa-icon.mr-1([icon]='["fab", "markdown"]')
+            | Markdown supported
         .invalid-feedback(*ngIf='bodyControl.hasError("required")')
-            | Body required.
+            | Body content required
         .invalid-feedback(*ngIf='bodyControl.hasError("body")')
-            | Body is not valid.
+            | Body content is not valid
 
     .form-group.d-flex.align-items-center.justify-content-between
         button.btn.btn-primary(
@@ -61,14 +66,14 @@ form#newPostForm([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
             data-cy='createButton',
             type='submit',
             [disabled]='newPostForm.invalid'
-        ) Create
+        ) Create Post
         button.btn.btn-primary(
             *ngIf='post',
             data-cy='updateButton',
             type='submit',
             [disabled]='newPostForm.invalid'
-        ) Update
+        ) Update Post
 
-h2 Preview
+h2.text-white.mb-4 Post Preview
 
 markdown#newPostPreview.p-4([data]='bodyControl.value')

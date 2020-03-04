@@ -5,6 +5,7 @@ import {
     faFacebookF,
     faGithub,
     faGoogle,
+    faMarkdown,
     faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 
@@ -13,5 +14,6 @@ export const fontAwesomeBrandsIcons = {
     faFacebook,
     faFacebookF,
     faGoogle,
+    faMarkdown,
     faTwitter,
 };

@@ -23,9 +23,11 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
                 )
                     a.nav-link.pointer(
                         (click)='editPost()'
-                    ) Edit
+                    ) Edit Post
 
-                li.nav-item(
-                    *ngIf='isLoggedIn'
-                )
-                    a.nav-link(routerLink='/new') New Post
+            form.form-inline(
+                *ngIf='isLoggedIn'
+            )
+                a.btn.btn-primary(routerLink='/new') New Post
+                
+                

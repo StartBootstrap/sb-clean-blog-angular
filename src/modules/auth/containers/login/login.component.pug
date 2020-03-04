@@ -2,11 +2,12 @@ sb-layout-auth
     .container
         .row.justify-content-center
             .col-lg-5
+                h5.text-white.text-center.mt-5 Enter admin password
                 form.form-inline.justify-content-between(
                     [formGroup]='loginForm',
                     (ngSubmit)='onSubmit()'
                 )
-                    input#inputPassword.form-control.py-4.mr-2.my-2.flex(
+                    input#inputPassword.form-control.py-4.mr-2.my-2(
                         data-cy='passwordInput',
                         type='password',
                         formControlName='password',
@@ -14,7 +15,7 @@ sb-layout-auth
                         [class.is-invalid]='passwordControlInvalid'
                     )
 
-                    button.btn.btn-primary.flex(
+                    button.btn.btn-primary(
                         data-cy='loginButton',
                         type='submit',
                         [disabled]='loginForm.invalid'

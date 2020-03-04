@@ -1,11 +1,5 @@
 @import 'styles/variables.scss';
 
-:host {
-    form {
-        margin-top: calc(100vh / 4);
-    }
-}
-
 #inputPassword {
     flex: .9 0 auto;
 }
