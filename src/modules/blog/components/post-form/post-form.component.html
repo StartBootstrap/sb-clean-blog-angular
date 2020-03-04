@@ -25,4 +25,4 @@
     <div class="form-group d-flex align-items-center justify-content-between"><button class="btn btn-primary" *ngIf="!post" data-cy="createButton" type="submit" [disabled]="newPostForm.invalid">Create Post</button><button class="btn btn-primary" *ngIf="post" data-cy="updateButton" type="submit" [disabled]="newPostForm.invalid">Update Post</button></div>
 </form>
 <h2 class="text-white mb-4">Post Preview</h2>
-<markdown class="p-4 mb-4" id="newPostPreview" [data]="bodyControl.value"></markdown><button class="btn btn-danger mb-5">Delete Post</button>
+<markdown class="p-4 mb-4" id="newPostPreview" [data]="bodyControl.value"></markdown>
