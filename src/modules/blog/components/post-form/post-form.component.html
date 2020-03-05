@@ -25,4 +25,15 @@
     <div class="form-group d-flex align-items-center justify-content-between"><button class="btn btn-primary" *ngIf="!post" data-cy="createButton" type="submit" [disabled]="newPostForm.invalid">Create Post</button><button class="btn btn-primary" *ngIf="post" data-cy="updateButton" type="submit" [disabled]="newPostForm.invalid">Update Post</button></div>
 </form>
 <h2 class="text-white mb-4">Post Preview</h2>
-<markdown class="p-4 mb-4" id="newPostPreview" [data]="bodyControl.value"></markdown>
+<markdown class="p-4 mb-4" id="newPostPreview" [data]="bodyControl.value"></markdown><button class="btn btn-danger" *ngIf="post" (click)='open(modalDeletePostWarning, {backdrop: "static"})'>Delete Post</button
+><ng-template #modalDeletePostWarning let-modal
+    ><div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button class="close" type="button" aria-label="Close" (click)='modal.dismiss("CANCEL")'><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body">
+        <div class="text-danger">Warning: Deleting a post is permamnent.</div>
+        <div class="text-danger">It can not be undone.</div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-primary" type="button" (click)='modal.close("CONFIRM")'>Confirm</button><button class="btn btn-secondary" type="button" (click)='modal.close("CANCEL")'>Cancel</button></div></ng-template
+>

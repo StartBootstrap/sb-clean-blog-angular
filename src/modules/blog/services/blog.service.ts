@@ -89,4 +89,20 @@ export class BlogService {
                 })
             );
     }
+
+    deletePost$(id: UUID): Observable<undefined | Error> {
+        return this.http
+            .delete<undefined>(
+                `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${id}`
+            )
+            .pipe(
+                tap(response => this.router.navigate([`/`])),
+                catchError((error: Error) => {
+                    console.log(error);
+                    this.router.navigate([`/error/${error.status}`]);
+                    // Have to return this in order to not freeze app when redirecting from interceptor
+                    return [error];
+                })
+            );
+    }
 }

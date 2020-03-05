@@ -77,3 +77,30 @@ form#newPostForm.mb-5([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
 h2.text-white.mb-4 Post Preview
 
 markdown#newPostPreview.p-4.mb-4([data]='bodyControl.value')
+
+button.btn.btn-danger(
+    *ngIf='post',
+    (click)='open(modalDeletePostWarning, {backdrop: "static"})'
+) Delete Post
+
+ng-template(#modalDeletePostWarning, let-modal)
+    .modal-header
+        h5.modal-title Confirm Delete
+        button.close(
+            type='button',
+            aria-label='Close',
+            (click)='modal.dismiss("CANCEL")'
+        )
+            span(aria-hidden='true') ×
+    .modal-body
+        .text-danger Warning: Deleting a post is permamnent.
+        .text-danger It can not be undone.
+    .modal-footer
+        button.btn.btn-primary(
+            type='button',
+            (click)='modal.close("CONFIRM")'
+        ) Confirm
+        button.btn.btn-secondary(
+            type='button',
+            (click)='modal.close("CANCEL")'
+        ) Cancel
