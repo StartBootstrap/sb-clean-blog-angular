@@ -13,12 +13,13 @@ export class TopNavComponent implements OnInit, OnDestroy {
     subscription: Subscription = new Subscription();
     isLoggedIn = false;
     isOnPost = false;
+    isMenuCollapsed = true;
 
     constructor(
         private navigationService: NavigationService,
         private authUtilsService: AuthUtilsService,
         private route: ActivatedRoute,
-        private router: Router,
+        private router: Router
     ) {}
     ngOnInit() {
         this.subscription.add(

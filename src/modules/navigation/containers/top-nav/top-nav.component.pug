@@ -3,31 +3,31 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
         a.navbar-brand(routerLink='/') Start Bootstrap
         button.navbar-toggler.navbar-toggler-right(
             type='button',
-            data-toggle='collapse',
-            data-target='#navbarResponsive',
+            (click)='isMenuCollapsed = !isMenuCollapsed',
             aria-controls='navbarResponsive',
             aria-expanded='false',
             aria-label='Toggle navigation'
         )
             | Menu
             fa-icon.ml-1([icon]='["fas", "bars"]')
-        .collapse.navbar-collapse#navbarResponsive
+        .collapse.navbar-collapse([ngbCollapse]='isMenuCollapsed')
             ul.navbar-nav.ml-auto
                 li.nav-item
-                    a.nav-link(routerLink='/') Home
+                    a.nav-link(routerLink='/', (click)='isMenuCollapsed = true') Home
                 li.nav-item
-                    a.nav-link(routerLink='/about') About
+                    a.nav-link(routerLink='/about', (click)='isMenuCollapsed = true') About
                     
                 li.nav-item(
                     *ngIf='isLoggedIn && isOnPost'
                 )
                     a.nav-link.pointer(
-                        (click)='editPost()'
+                        (click)='editPost()',
+                        (click)='isMenuCollapsed = true'
                     ) Edit Post
 
-            form.form-inline(
+            form.form-inline.ml-lg-2(
                 *ngIf='isLoggedIn'
             )
-                a.btn.btn-primary(routerLink='/new') New Post
+                a.btn.btn-primary(routerLink='/new', (click)='isMenuCollapsed = true') New Post
                 
                 

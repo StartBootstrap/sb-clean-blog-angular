@@ -92,14 +92,13 @@ ng-template(#modalDeletePostWarning, let-modal)
             (click)='modal.dismiss("CANCEL")'
         )
             span(aria-hidden='true') ×
-    .modal-body
-        .text-danger Warning: Deleting a post is permamnent.
-        .text-danger It can not be undone.
+    .modal-body.small
+        .text-danger Warning: Deleting a post is permamnent. This action cannot be undone.
     .modal-footer
-        button.btn.btn-primary(
+        button.btn.btn-danger(
             type='button',
             (click)='modal.close("CONFIRM")'
-        ) Confirm
+        ) Delete Post
         button.btn.btn-secondary(
             type='button',
             (click)='modal.close("CANCEL")'

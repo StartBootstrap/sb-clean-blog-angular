@@ -31,9 +31,6 @@
         <h5 class="modal-title">Confirm Delete</h5>
         <button class="close" type="button" aria-label="Close" (click)='modal.dismiss("CANCEL")'><span aria-hidden="true">×</span></button>
     </div>
-    <div class="modal-body">
-        <div class="text-danger">Warning: Deleting a post is permamnent.</div>
-        <div class="text-danger">It can not be undone.</div>
-    </div>
-    <div class="modal-footer"><button class="btn btn-primary" type="button" (click)='modal.close("CONFIRM")'>Confirm</button><button class="btn btn-secondary" type="button" (click)='modal.close("CANCEL")'>Cancel</button></div></ng-template
+    <div class="modal-body small"><div class="text-danger">Warning: Deleting a post is permamnent. This action cannot be undone.</div></div>
+    <div class="modal-footer"><button class="btn btn-danger" type="button" (click)='modal.close("CONFIRM")'>Delete Post</button><button class="btn btn-secondary" type="button" (click)='modal.close("CANCEL")'>Cancel</button></div></ng-template
 >

@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" routerLink="/">Start Bootstrap</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<fa-icon class="ml-1" [icon]='["fas", "bars"]'></fa-icon></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <a class="navbar-brand" routerLink="/">Start Bootstrap</a><button class="navbar-toggler navbar-toggler-right" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<fa-icon class="ml-1" [icon]='["fas", "bars"]'></fa-icon></button>
+        <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
                 <li class="nav-item" *ngIf="isLoggedIn &amp;&amp; isOnPost"><a class="nav-link pointer" (click)="editPost()">Edit Post</a></li>
             </ul>
-            <form class="form-inline" *ngIf="isLoggedIn"><a class="btn btn-primary" routerLink="/new">New Post</a></form>
+            <form class="form-inline ml-lg-2" *ngIf="isLoggedIn"><a class="btn btn-primary" routerLink="/new">New Post</a></form>
         </div>
     </div>
 </nav>
