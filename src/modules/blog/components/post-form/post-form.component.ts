@@ -45,7 +45,7 @@ export class PostFormComponent implements OnInit {
                     .subscribe(response => console.log(response));
             } else {
                 this.blogService
-                    .updatePost$(this.post.id, this.newPostForm.value)
+                    .updatePost$(this.post, this.newPostForm.value)
                     .subscribe(response => console.log(response));
             }
         }

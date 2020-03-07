@@ -13,21 +13,20 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
         .collapse.navbar-collapse([ngbCollapse]='isMenuCollapsed')
             ul.navbar-nav.ml-auto
                 li.nav-item
-                    a.nav-link(routerLink='/', (click)='isMenuCollapsed = true') Home
+                    a.nav-link(routerLink='/') Home
                 li.nav-item
-                    a.nav-link(routerLink='/about', (click)='isMenuCollapsed = true') About
+                    a.nav-link(routerLink='/about') About
                     
                 li.nav-item(
                     *ngIf='isLoggedIn && isOnPost'
                 )
                     a.nav-link.pointer(
                         (click)='editPost()',
-                        (click)='isMenuCollapsed = true'
                     ) Edit Post
 
             form.form-inline.ml-lg-2(
                 *ngIf='isLoggedIn'
             )
-                a.btn.btn-primary(routerLink='/new', (click)='isMenuCollapsed = true') New Post
+                a.btn.btn-primary(routerLink='/new') New Post
                 
                 

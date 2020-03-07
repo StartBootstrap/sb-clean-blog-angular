@@ -74,13 +74,14 @@ export class BlogService {
             );
     }
 
-    updatePost$(id: UUID, payload: UpdatePostPayload): Observable<undefined | Error> {
+    updatePost$(post: Post, payload: UpdatePostPayload): Observable<undefined | Error> {
         return this.http
             .put<undefined>(
-                `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${id}`,
+                `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${post.id}`,
                 payload
             )
             .pipe(
+                tap(response => this.router.navigate([`/${post.slug}`])),
                 catchError((error: Error) => {
                     console.log(error);
                     this.router.navigate([`/error/${error.status}`]);
