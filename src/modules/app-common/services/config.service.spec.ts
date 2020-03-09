@@ -1,25 +1,31 @@
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 // import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-import { ConfigService } from './error.service';
+import { ConfigService } from './config.service';
 
 describe('ConfigService', () => {
-    let errorService: ConfigService;
-    // let toastrService: ToastrService;
+    let configService: ConfigService;
+    let httpClient: HttpClient;
+    let httpTestingController: HttpTestingController;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            // imports: [ToastrModule.forRoot()],
-            // providers: [ConfigService, ToastrService],
+            imports: [HttpClientTestingModule],
+            providers: [ConfigService],
         });
-        errorService = TestBed.get(ConfigService);
-        // toastrService = TestBed.get(ToastrService);
+
+        configService = TestBed.inject(ConfigService);
+
+        httpClient = TestBed.inject(HttpClient);
+        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
     describe('handle', () => {
         it('should show error message in toastr', () => {
             // spyOn(toastrService, 'error');
-            errorService.handle(new Error('TEST_ERROR'), 'TEST_TITLE');
+            // errorService.handle(new Error('TEST_ERROR'), 'TEST_TITLE');
             // expect(toastrService.error).toHaveBeenCalledWith('TEST_ERROR', 'TEST_TITLE');
         });
     });

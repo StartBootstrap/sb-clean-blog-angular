@@ -13,7 +13,7 @@ declare global {
 
 
     interface Error {
-        status: number;
+        status?: number;
     }
     
 }

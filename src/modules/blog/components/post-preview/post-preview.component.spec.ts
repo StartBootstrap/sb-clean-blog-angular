@@ -6,7 +6,10 @@ import { PostPreviewComponent } from './post-preview.component';
 
 @Component({
     template: `
-        <sb-post-preview [someInput]="someInput" (someFunction)="someFunction($event)"></sb-post-preview>
+        <sb-post-preview
+            [someInput]="someInput"
+            (someFunction)="someFunction($event)"
+        ></sb-post-preview>
     `,
 })
 class TestHostComponent {
@@ -45,6 +48,6 @@ describe('PostPreviewComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-post-preview')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-post-preview')).toEqual(jasmine.anything());
     });
 });

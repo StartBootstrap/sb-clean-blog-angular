@@ -6,10 +6,10 @@ import { LayoutErrorComponent } from './layout-error.component';
 
 @Component({
     template: `
-        <sbpro-layout-error
+        <sb-layout-error
             [someInput]="someInput"
             (someFunction)="someFunction($event)"
-        ></sbpro-layout-error>
+        ></sb-layout-error>
     `,
 })
 class TestHostComponent {
@@ -48,6 +48,6 @@ describe('LayoutErrorComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-layout-error')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-layout-error')).toEqual(jasmine.anything());
     });
 });

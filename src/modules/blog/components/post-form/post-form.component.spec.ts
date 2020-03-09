@@ -1,6 +1,9 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BlogService } from '@modules/blog/services';
+import { BlogServiceStub } from '@testing/stubs';
 
 import { PostFormComponent } from './post-form.component';
 
@@ -24,11 +27,13 @@ describe('PostFormComponent', () => {
     let componentDE: DebugElement;
     let componentNE: Element;
 
+    let blogService: BlogService;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, PostFormComponent],
             imports: [NoopAnimationsModule],
-            providers: [],
+            providers: [FormBuilder, { provide: BlogService, useValue: BlogServiceStub }],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
@@ -41,10 +46,12 @@ describe('PostFormComponent', () => {
         component = componentDE.componentInstance;
         componentNE = componentDE.nativeElement;
 
+        blogService = TestBed.inject(BlogService);
+
         fixture.detectChanges();
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-post-form')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-post-form')).toEqual(jasmine.anything());
     });
 });

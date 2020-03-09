@@ -1,14 +1,14 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { UtilityService } from '@modules/utility/services';
+import { UtilityServiceStub } from '@testing/stubs/utility';
+
 import { VersionComponent } from './version.component';
 
 @Component({
     template: `
-        <sbpro-version
-            [someInput]="someInput"
-            (someFunction)="someFunction($event)"
-        ></sbpro-version>
+        <sb-version [someInput]="someInput" (someFunction)="someFunction($event)"></sb-version>
     `,
 })
 class TestHostComponent {
@@ -26,13 +26,13 @@ describe('VersionComponent', () => {
     let componentDE: DebugElement;
     let componentNE: Element;
 
+    let utilityService: UtilityService;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, VersionComponent],
-            imports: [
-                NoopAnimationsModule,
-            ],
-            providers: [],
+            imports: [NoopAnimationsModule],
+            providers: [{ provide: UtilityService, useValue: new UtilityServiceStub() }],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
@@ -45,13 +45,12 @@ describe('VersionComponent', () => {
         component = componentDE.componentInstance;
         componentNE = componentDE.nativeElement;
 
+        utilityService = TestBed.inject(UtilityService);
+
         fixture.detectChanges();
     });
 
     it('should display the component', () => {
-        expect(
-            hostComponentNE.querySelector('sbpro-version'),
-        ).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-version')).toEqual(jasmine.anything());
     });
-
 });

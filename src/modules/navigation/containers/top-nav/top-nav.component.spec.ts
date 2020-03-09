@@ -1,8 +1,15 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthUtilsService } from '@modules/auth/services';
 import { NavigationService } from '@modules/navigation/services';
-import { NavigationServiceStub } from '@testing/stubs';
+import {
+    ActivatedRouteStub,
+    AuthUtilsServiceStub,
+    NavigationServiceStub,
+    RouterStub,
+} from '@testing/stubs';
 
 import { TopNavComponent } from './top-nav.component';
 
@@ -27,12 +34,19 @@ describe('TopNavComponent', () => {
     let componentNE: Element;
 
     let navigationService: NavigationService;
+    let authUtilsService: AuthUtilsService;
+    let router: Router;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, TopNavComponent],
             imports: [NoopAnimationsModule],
-            providers: [{ provide: NavigationService, useValue: NavigationServiceStub }],
+            providers: [
+                { provide: NavigationService, useValue: NavigationServiceStub },
+                { provide: AuthUtilsService, useValue: AuthUtilsServiceStub },
+                { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}) },
+                { provide: Router, useValue: new RouterStub() },
+            ],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
@@ -45,7 +59,9 @@ describe('TopNavComponent', () => {
         component = componentDE.componentInstance;
         componentNE = componentDE.nativeElement;
 
-        navigationService = TestBed.get(NavigationService);
+        navigationService = TestBed.inject(NavigationService);
+        authUtilsService = TestBed.inject(AuthUtilsService);
+        router = TestBed.inject(Router);
 
         fixture.detectChanges();
     });

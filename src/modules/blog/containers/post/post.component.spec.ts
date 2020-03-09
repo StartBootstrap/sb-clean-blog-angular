@@ -1,6 +1,9 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BlogService } from '@modules/blog/services';
+import { ActivatedRouteStub, BlogServiceStub, RouterStub } from '@testing/stubs';
 
 import { PostComponent } from './post.component';
 
@@ -24,11 +27,18 @@ describe('PostComponent', () => {
     let componentDE: DebugElement;
     let componentNE: Element;
 
+    let router: Router;
+    let blogService: BlogService;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, PostComponent],
             imports: [NoopAnimationsModule],
-            providers: [],
+            providers: [
+                { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}) },
+                { provide: Router, useValue: new RouterStub() },
+                { provide: BlogService, useValue: BlogServiceStub },
+            ],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
@@ -41,10 +51,13 @@ describe('PostComponent', () => {
         component = componentDE.componentInstance;
         componentNE = componentDE.nativeElement;
 
+        router = TestBed.inject(Router);
+        blogService = TestBed.inject(BlogService);
+
         fixture.detectChanges();
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-post')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-post')).toEqual(jasmine.anything());
     });
 });

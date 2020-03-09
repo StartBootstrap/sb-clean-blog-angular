@@ -45,6 +45,6 @@ describe('AboutComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-about')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-about')).toEqual(jasmine.anything());
     });
 });

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Post } from '@modules/blog/models';
 import { BlogService } from '@modules/blog/services';
-import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'sb-post-form',

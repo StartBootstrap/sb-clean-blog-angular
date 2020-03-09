@@ -45,6 +45,6 @@ describe('NewPostComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-new-post')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-new-post')).toEqual(jasmine.anything());
     });
 });

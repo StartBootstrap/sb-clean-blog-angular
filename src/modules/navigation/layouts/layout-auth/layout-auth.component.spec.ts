@@ -6,10 +6,10 @@ import { LayoutAuthComponent } from './layout-auth.component';
 
 @Component({
     template: `
-        <sbpro-layout-auth
+        <sb-layout-auth
             [someInput]="someInput"
             (someFunction)="someFunction($event)"
-        ></sbpro-layout-auth>
+        ></sb-layout-auth>
     `,
 })
 class TestHostComponent {
@@ -48,6 +48,6 @@ describe('LayoutAuthComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-layout-auth')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-layout-auth')).toEqual(jasmine.anything());
     });
 });
