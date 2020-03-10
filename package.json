@@ -72,7 +72,7 @@
         "@angular/compiler-cli": "9.0.4",
         "@angular/language-service": "9.0.4",
         "@inip/static-server": "1.0.1",
-        "@start-bootstrap/sb-clean-blog-shared-types": "1.0.0",
+        "@start-bootstrap/sb-clean-blog-shared-types": "1.0.1",
         "@types/chart.js": "2.9.14",
         "@types/jasmine": "3.5.7",
         "@types/jasminewd2": "2.0.8",
