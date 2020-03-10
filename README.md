@@ -46,11 +46,14 @@ npm run test
 
 ```bash
 npm run e2e
+
+# To run against currently running server instead of launching a new server
+npm run e2e:running
 ```
 
 ## Production
 
-SB Clean Blog Angular come with a production ready Dockerfile and build scripts.
+SB Clean Blog Angular comes with a production ready Dockerfile and build scripts.
 
 You can get Docker [here](https://www.docker.com/get-started)
 
