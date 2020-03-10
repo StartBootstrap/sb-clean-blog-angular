@@ -22,7 +22,9 @@ export class NavigationService {
 
                 this._routeData$.next(snapshot.data as SBRouteData);
                 this._currentURL$.next(router.url);
-                this._currentComponent$.next((snapshot.component as { name: string }).name);
+                this._currentComponent$.next(
+                    ((snapshot.component as unknown) as { id: string }).id
+                );
             });
     }
 

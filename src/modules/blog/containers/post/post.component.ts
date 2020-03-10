@@ -12,6 +12,7 @@ import { switchMap, tap } from 'rxjs/operators';
     styleUrls: ['post.component.scss'],
 })
 export class PostComponent implements OnInit {
+    static id = 'PostComponent';
     post$!: Observable<Post | null>;
     post!: string;
 

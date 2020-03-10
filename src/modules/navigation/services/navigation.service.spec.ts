@@ -35,7 +35,7 @@ describe('NavigationService', () => {
                     firstChild: null,
                     data: {},
                     component: {
-                        name: 'TEST',
+                        id: 'TEST',
                     },
                 },
             } as unknown) as ActivatedRouteSnapshot)
