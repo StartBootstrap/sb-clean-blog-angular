@@ -2,12 +2,11 @@ sudo: false
 
 language: node_js
 
+dist: trusty
 addons:
-    apt:
-        sources:
-            -   google-chrome
-        packages:
-            -   google-chrome-stable
+    chrome: stable
+before_install:
+    -   google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 cache:
     directories:
@@ -15,9 +14,6 @@ cache:
 
 install:
     -   npm install
-
-# script:
-#     -   npm test
 
 jobs:
     include:
