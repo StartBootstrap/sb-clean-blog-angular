@@ -15,13 +15,6 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: appCommonContainers.VersionComponent,
     },
-    {
-        path: 'version',
-        loadChildren: () =>
-            import('modules/app-common/app-common-routing.module').then(
-                m => m.AppCommonRoutingModule
-            ),
-    },
 ];
 
 @NgModule({

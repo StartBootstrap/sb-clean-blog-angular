@@ -6,6 +6,6 @@ export class AppPage {
     }
 
     getTitleText() {
-        return element(by.css('app-root sb-dashboard-head h1')).getText() as Promise<string>;
+        return element(by.css('header .subheading')).getText() as Promise<string>;
     }
 }

@@ -9,9 +9,9 @@ describe('workspace-project App', () => {
         page = new AppPage();
     });
 
-    it('should display welcome message', () => {
+    it('should show home page', () => {
         page.navigateTo();
-        expect(page.getTitleText()).toEqual('Dashboard');
+        expect(page.getTitleText()).toEqual(`Blog Theme by Start Bootstrap`);
     });
 
     afterEach(async () => {

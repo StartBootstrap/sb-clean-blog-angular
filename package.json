@@ -10,6 +10,7 @@
         "docker:build": "node scripts/docker/docker-build.js",
         "docker:run": "node scripts/docker/docker-run.js",
         "e2e": "npm run ng -- e2e",
+        "e2e:running": "npm run ng -- e2e --dev-server-target=",
         "generate:component": "ng generate @sbpro/ng:component",
         "generate:directive": "ng generate @sbpro/ng:directive",
         "generate:module": "ng generate @sbpro/ng:module",

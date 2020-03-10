@@ -20,7 +20,9 @@ const routes: Routes = [
     {
         path: 'version',
         loadChildren: () =>
-            import('modules/utility/utility-routing.module').then(m => m.UtilityRoutingModule),
+            import('modules/app-common/app-common-routing.module').then(
+                m => m.AppCommonRoutingModule
+            ),
     },
     {
         path: '**',
