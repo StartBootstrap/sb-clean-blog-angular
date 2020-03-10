@@ -4,3 +4,4 @@ export * from './auth';
 export * from './blog';
 export * from './config';
 export * from './navigation';
+export * from './utility';

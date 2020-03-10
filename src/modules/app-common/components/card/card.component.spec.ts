@@ -6,12 +6,12 @@ import { CardComponent } from './card.component';
 
 @Component({
     template: `
-        <sb-card [someInput]="someInput" (someFunction)="someFunction($event)"></sb-card>
+        <sb-card [background]="background" [color]="color"></sb-card>
     `,
 })
 class TestHostComponent {
-    // someInput = 1;
-    // someFunction(event: Event) {}
+    background!: string;
+    color!: string;
 }
 
 describe('CardComponent', () => {
@@ -46,5 +46,21 @@ describe('CardComponent', () => {
 
     it('should display the component', () => {
         expect(hostComponentNE.querySelector('sb-card')).toEqual(jasmine.anything());
+    });
+
+    it('should push background', () => {
+        hostComponent.background = 'bg-primary';
+        spyOn(component.customClasses, 'push').and.callThrough();
+        fixture.detectChanges();
+        component.ngOnInit();
+        expect(component.customClasses.push).toHaveBeenCalledWith('bg-primary');
+    });
+
+    it('should push color', () => {
+        hostComponent.color = 'white';
+        spyOn(component.customClasses, 'push').and.callThrough();
+        fixture.detectChanges();
+        component.ngOnInit();
+        expect(component.customClasses.push).toHaveBeenCalledWith('white');
     });
 });

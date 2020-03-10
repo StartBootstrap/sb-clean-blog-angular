@@ -6,15 +6,12 @@ import { CardViewDetailsComponent } from './card-view-details.component';
 
 @Component({
     template: `
-        <sb-card-view-details
-            [someInput]="someInput"
-            (someFunction)="someFunction($event)"
-        ></sb-card-view-details>
+        <sb-card-view-details [background]="background" [color]="color"></sb-card-view-details>
     `,
 })
 class TestHostComponent {
-    // someInput = 1;
-    // someFunction(event: Event) {}
+    background!: string;
+    color!: string;
 }
 
 describe('CardViewDetailsComponent', () => {
@@ -49,5 +46,21 @@ describe('CardViewDetailsComponent', () => {
 
     it('should display the component', () => {
         expect(hostComponentNE.querySelector('sb-card-view-details')).toEqual(jasmine.anything());
+    });
+
+    it('should push background', () => {
+        hostComponent.background = 'bg-primary';
+        spyOn(component.customClasses, 'push').and.callThrough();
+        fixture.detectChanges();
+        component.ngOnInit();
+        expect(component.customClasses.push).toHaveBeenCalledWith('bg-primary');
+    });
+
+    it('should push color', () => {
+        hostComponent.color = 'white';
+        spyOn(component.customClasses, 'push').and.callThrough();
+        fixture.detectChanges();
+        component.ngOnInit();
+        expect(component.customClasses.push).toHaveBeenCalledWith('white');
     });
 });

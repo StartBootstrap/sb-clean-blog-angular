@@ -1,6 +1,18 @@
 // https://angular.io/guide/testing#activatedroutestub
 
-import { convertToParamMap, ParamMap, Params } from '@angular/router';
+import {
+    ActivationEnd,
+    ActivationStart,
+    ChildActivationEnd,
+    ChildActivationStart,
+    convertToParamMap,
+    ParamMap,
+    Params,
+    RouteConfigLoadEnd,
+    RouteConfigLoadStart,
+    RouterEvent,
+    Scroll,
+} from '@angular/router';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 /**
@@ -8,17 +20,20 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
  * Use the `setParamMap()` method to add the next `paramMap` value.
  */
 export class ActivatedRouteStub {
+    constructor(initialParams: Params) {
+        this.setParamMap(initialParams);
+    }
+    static fragment = new BehaviorSubject<string>('');
+    static snapshot = {
+        fragment: '',
+    };
     // Use a ReplaySubject to share previous values with subscribers
     // and pump new values into the `paramMap` observable
     private subject = new ReplaySubject<ParamMap>();
 
-    constructor(initialParams: Params) {
-        this.setParamMap(initialParams);
-    }
-
     /** The mock paramMap observable */
     readonly paramMap = this.subject.asObservable();
-
+    // readonly fragment = this._fragment.asObservable();
     /** Set the paramMap observables's next value */
     setParamMap(params: Params) {
         this.subject.next(convertToParamMap(params));
@@ -26,5 +41,23 @@ export class ActivatedRouteStub {
 }
 
 export class RouterStub {
-    events = new BehaviorSubject<Event>({} as Event);
+    events = new BehaviorSubject<
+        | ChildActivationEnd
+        | RouterEvent
+        | RouteConfigLoadStart
+        | RouteConfigLoadEnd
+        | ChildActivationStart
+        | ActivationStart
+        | ActivationEnd
+        | Scroll
+        | undefined
+    >({} as RouterEvent);
+    url = 'test';
+    navigate() {}
 }
+
+export const ChangeDetectorRefStub = {
+    detectChanges: () => {
+        console.log('asd');
+    },
+};

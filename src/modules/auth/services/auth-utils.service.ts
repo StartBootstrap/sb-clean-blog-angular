@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UtilService } from '@common/services';
+import { UtilityService } from '@common/services';
 import { Token } from '@start-bootstrap/sb-clean-blog-shared-types';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 
@@ -11,7 +11,7 @@ const _isLoggedIn$ = new BehaviorSubject(false);
 @Injectable()
 export class AuthUtilsService {
     jwtHelperService: JwtHelperService = new JwtHelperService();
-    constructor(private util: UtilService) {}
+    constructor(private util: UtilityService) {}
 
     isLoggedIn$(): Observable<boolean> {
         return _isLoggedIn$;

@@ -54,4 +54,24 @@ describe('LoginComponent', () => {
     it('should display the component', () => {
         expect(hostComponentNE.querySelector('sb-login')).toEqual(jasmine.anything());
     });
+    it('should submit', () => {
+        spyOn(authService, 'login$').and.callThrough();
+        expect(component.loginForm.valid).toBeFalsy();
+        component.loginForm.setValue({ password: 'test' });
+        expect(component.loginForm.valid).toBeFalsy();
+        component.loginForm.setValue({ password: 'testtesttest' });
+        expect(component.loginForm.valid).toBeTruthy();
+
+        expect(component.passwordControlValid).toBeFalsy();
+        component.loginForm.controls.password.markAsTouched();
+        expect(component.passwordControlValid).toBeTruthy();
+
+        component.onSubmit();
+        expect(authService.login$).toHaveBeenCalled();
+    });
+    it('should NOT submit if form is INVALID', () => {
+        spyOn(authService, 'login$').and.callThrough();
+        component.onSubmit();
+        expect(authService.login$).not.toHaveBeenCalled();
+    });
 });

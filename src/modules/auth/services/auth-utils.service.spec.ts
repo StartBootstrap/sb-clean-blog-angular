@@ -1,162 +1,171 @@
 import { TestBed } from '@angular/core/testing';
 import { JwtHelperService } from '@auth0/angular-jwt';
-// import { RouterStateUrl, TestRouterStateUrl, TestUser, User } from '@testing/common';
-// import { localStorageServiceStub } from '@testing/stubs';
-// import { LocalStorageService } from 'ngx-webstorage';
+import { UtilityService } from '@common/services';
 import { MockUser, User } from '@testing/mocks';
-import { of } from 'rxjs';
+import { UtilityServiceStub } from '@testing/stubs';
 
 import { AuthUtilsService } from './auth-utils.service';
-import { AuthService } from './auth.service';
 
 const testUser: User = new MockUser();
-// const testRouterStateUrl: RouterStateUrl = new TestRouterStateUrl();
 
 describe('Auth Utils Service', () => {
-    let authService: AuthService;
     let authUtilsService: AuthUtilsService;
-    // let localStorageService: LocalStorageService;
-
-    let authServiceStub: Partial<AuthService>;
-
-    // authServiceStub = {
-    //     getRouterState$: () => of(testRouterStateUrl),
-    // };
+    let utilityService: UtilityService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 AuthUtilsService,
-                { provide: AuthService, useValue: authServiceStub },
-                // { provide: LocalStorageService, useValue: localStorageServiceStub },
+                { provide: UtilityService, useValue: new UtilityServiceStub() },
             ],
         });
 
-        authService = TestBed.inject(AuthService);
         authUtilsService = TestBed.inject(AuthUtilsService);
-        // localStorageService = TestBed.inject(LocalStorageService);
+        utilityService = TestBed.inject(UtilityService);
     });
 
-    // describe('checkToken$', () => {
-    //     it('should return an Observable<string> if token is valid', () => {
-    //         authUtilsService.jwtHelperService = <JwtHelperService>{
-    //             decodeToken: () => 'TOKEN_PAYLOAD',
-    //             isTokenExpired: () => false,
-    //         };
-    //         spyOn(localStorageService, 'retrieve').and.returnValue('TOKEN');
-    //         authUtilsService.checkToken$().subscribe(response => {
-    //             expect(response).toEqual('TOKEN');
-    //         });
-    //     });
-    //     it('should throw an error is there is no token', () => {
-    //         authUtilsService.jwtHelperService = <JwtHelperService>{
-    //             decodeToken: () => 'TOKEN_PAYLOAD',
-    //             isTokenExpired: () => false,
-    //         };
-    //         // spyOn(localStorageService, 'retrieve').and.returnValue(undefined);
-    //         authUtilsService.checkToken$().subscribe(
-    //             response => {},
-    //             error => {
-    //                 expect(error).toEqual(new Error('INVALID_JWT'));
-    //             }
-    //         );
-    //     });
-    //     it('should throw an error if token is expired', () => {
-    //         authUtilsService.jwtHelperService = <JwtHelperService>{
-    //             decodeToken: () => 'TOKEN_PAYLOAD',
-    //             isTokenExpired: () => true,
-    //         };
-    //         // spyOn(localStorageService, 'retrieve').and.returnValue('TOKEN');
-    //         authUtilsService.checkToken$().subscribe(
-    //             response => {},
-    //             error => {
-    //                 expect(error).toEqual(new Error('INVALID_JWT'));
-    //             }
-    //         );
-    //     });
-    // });
+    describe('checkToken$', () => {
+        it('should return an Observable<string> if token is valid', () => {
+            authUtilsService.jwtHelperService = {
+                decodeToken: () => 'TOKEN_PAYLOAD',
+                isTokenExpired: () => false,
+            } as JwtHelperService;
+            spyOn(utilityService.localStorage, 'getItem').and.returnValue('TOKEN');
+            authUtilsService.checkToken$().subscribe(response => {
+                expect(response).toEqual('TOKEN');
+            });
+        });
+        it('should throw an error is there is no token', () => {
+            authUtilsService.jwtHelperService = {
+                decodeToken: () => 'TOKEN_PAYLOAD',
+                isTokenExpired: () => false,
+            } as JwtHelperService;
+            // spyOn(utilityService.localStorage, 'getItem').and.returnValue(undefined);
+            authUtilsService.checkToken$().subscribe(
+                response => {},
+                error => {
+                    expect(error).toEqual(new Error('INVALID_JWT'));
+                }
+            );
+        });
+        it('should throw an error if token is expired', () => {
+            authUtilsService.jwtHelperService = {
+                decodeToken: () => 'TOKEN_PAYLOAD',
+                isTokenExpired: () => true,
+            } as JwtHelperService;
+            // spyOn(utilityService.localStorage, 'getItem').and.returnValue('TOKEN');
+            authUtilsService.checkToken$().subscribe(
+                response => {},
+                error => {
+                    expect(error).toEqual(new Error('INVALID_JWT'));
+                }
+            );
+        });
+    });
 
-    // describe('processToken$', () => {
-    //     it('should return an Observable<User> if token is valid', () => {
-    //         spyOn(authUtilsService, 'storeToken');
-    //         spyOn(authUtilsService, 'decodeToken').and.returnValue(testUser);
-    //         authUtilsService.processToken$('PASSED_TOKEN').subscribe(response => {
-    //             expect(response).toEqual(testUser);
-    //             expect(authUtilsService.storeToken).toHaveBeenCalledTimes(1);
-    //             expect(authUtilsService.decodeToken).toHaveBeenCalledWith('PASSED_TOKEN');
-    //         });
-    //     });
-    //     it('should throw an error if there is no token', () => {
-    //         authUtilsService.processToken$('').subscribe(
-    //             response => {},
-    //             error => {
-    //                 expect(error).toEqual(new Error('NO_TOKEN'));
-    //             }
-    //         );
-    //     });
-    // });
+    describe('processToken$', () => {
+        it('should return an Observable<User> if token is valid', () => {
+            spyOn(authUtilsService, '_storeToken');
+            spyOn(authUtilsService, '_decodeToken').and.returnValue(testUser);
+            authUtilsService.processToken$('PASSED_TOKEN').subscribe(response => {
+                expect(response).toEqual(testUser);
+                expect(authUtilsService._storeToken).toHaveBeenCalledTimes(1);
+                expect(authUtilsService._decodeToken).toHaveBeenCalledWith('PASSED_TOKEN');
+            });
+        });
+        it('should throw an error if there is no token', () => {
+            authUtilsService.processToken$('').subscribe(
+                response => {},
+                error => {
+                    expect(error).toEqual(new Error('NO_TOKEN'));
+                }
+            );
+        });
+    });
 
-    // describe('checkAllowedUnauthenticatedURL$', () => {
-    //     it('should return an Observable<boolean> true if user is not visiting /account/create', () => {
-    //         authUtilsService
-    //             .checkAllowedUnauthenticatedURL$('/account/create')
-    //             .subscribe(response => {
-    //                 expect(response).toEqual(true);
-    //             });
-    //     });
-    //     it('should return an Observable<boolean> false if user is not visiting /account/create', () => {
-    //         authUtilsService
-    //             .checkAllowedUnauthenticatedURL$('/account/test/overview/')
-    //             .subscribe(response => {
-    //                 expect(response).toEqual(false);
-    //             });
-    //     });
-    // });
+    describe('_decodeToken', () => {
+        it('should return a decoded Token, which is a User', () => {
+            authUtilsService.jwtHelperService = {
+                decodeToken: () => testUser,
+            } as JwtHelperService;
+            const response = authUtilsService._decodeToken('PASSED_TOKEN');
+            expect(response).toEqual(testUser);
+        });
+    });
 
-    // describe('decodeToken', () => {
-    //     it('should return a decoded Token, which is a User', () => {
-    //         authUtilsService.jwtHelperService = <JwtHelperService>{
-    //             decodeToken: () => testUser,
-    //         };
-    //         const response = authUtilsService.decodeToken('PASSED_TOKEN');
-    //         expect(response).toEqual(testUser);
-    //     });
-    // });
+    describe('checkToken', () => {
+        it('should call _jstIsValid', () => {
+            spyOn(authUtilsService, '_jwtIsValid');
+            authUtilsService.checkToken();
+            expect(authUtilsService._jwtIsValid).toHaveBeenCalled();
+        });
+    });
 
-    // describe('checkToken', () => {
-    //     it('should return token', () => {
-    //         authUtilsService.jwtHelperService = <JwtHelperService>{
-    //             isTokenExpired: () => false,
-    //         };
-    //         spyOn(localStorageService, 'retrieve').and.returnValue('TOKEN');
+    describe('_storeToken', () => {
+        it('should store the token in local storage', () => {
+            spyOn(utilityService.localStorage, 'setItem');
+            authUtilsService._storeToken('PASSED_TOKEN');
+            expect(utilityService.localStorage.setItem).toHaveBeenCalled();
+        });
+    });
 
-    //         const response = authUtilsService.checkToken();
-    //         expect(response).toEqual('TOKEN');
-    //     });
-    //     it('should return false', () => {
-    //         authUtilsService.jwtHelperService = <JwtHelperService>{
-    //             isTokenExpired: () => true,
-    //         };
-    //         spyOn(localStorageService, 'retrieve').and.returnValue('TOKEN');
+    describe('removeTokens', () => {
+        it('should remove the token from local storage', () => {
+            spyOn(utilityService.localStorage, 'removeItem');
+            authUtilsService.removeTokens();
+            expect(utilityService.localStorage.removeItem).toHaveBeenCalled();
+        });
+    });
 
-    //         const response = authUtilsService.checkToken();
-    //         expect(response).toEqual(false);
-    //     });
-    // });
+    describe('Observables', () => {
+        it('should return _isLoggedIn$ Observable', () => {
+            authUtilsService.isLoggedIn$().subscribe(response => {
+                expect(response).toBeFalse();
+            });
+        });
+        it('should return _decodeToken$ Observable', () => {
+            spyOn(authUtilsService, '_decodeToken');
+            authUtilsService.decodeToken$('TEST_TOKEN').subscribe(response => {
+                expect(authUtilsService._decodeToken).toHaveBeenCalled();
+            });
+        });
+    });
 
-    // describe('storeToken', () => {
-    //     it('should store the token in local storage', () => {
-    //         spyOn(localStorageService, 'store');
-    //         authUtilsService.storeToken('PASSED_TOKEN');
-    //         expect(localStorageService.store).toHaveBeenCalled();
-    //     });
-    // });
+    describe('bearerToken', () => {
+        it('should return bearer token string', () => {
+            spyOn(authUtilsService, '_jwtIsValid').and.returnValue('TEST_TOKEN');
+            expect(authUtilsService.bearerToken()).toEqual('bearer TEST_TOKEN');
+            expect(authUtilsService._jwtIsValid).toHaveBeenCalled();
+        });
+        it('should return false if no token', () => {
+            spyOn(authUtilsService, '_jwtIsValid').and.returnValue(false);
+            expect(authUtilsService.bearerToken()).toEqual(false);
+            expect(authUtilsService._jwtIsValid).toHaveBeenCalled();
+        });
+    });
 
-    // describe('removeTokens', () => {
-    //     it('should remove the token from local storage', () => {
-    //         spyOn(localStorageService, 'clear');
-    //         authUtilsService.removeTokens();
-    //         expect(localStorageService.clear).toHaveBeenCalled();
-    //     });
-    // });
+    describe('postOptionsAuthHeaders', () => {
+        it('should return auth header with bearer token', () => {
+            spyOn(authUtilsService, 'bearerToken').and.returnValue('TEST');
+
+            expect({ ...authUtilsService.postOptionsAuthHeaders() }).toEqual({
+                headers: { Authorization: 'TEST' },
+            });
+            expect(authUtilsService.bearerToken).toHaveBeenCalled();
+        });
+    });
+
+    describe('_jwtIsValid', () => {
+        it('should handle no token in local storage', () => {
+            spyOn(utilityService.localStorage, 'getItem').and.returnValue(null);
+            expect(authUtilsService._jwtIsValid()).toBeFalse();
+            expect(utilityService.localStorage.getItem).toHaveBeenCalled();
+        });
+        it('should handle expired tokens', () => {
+            spyOn(utilityService.localStorage, 'getItem').and.returnValue('TEST');
+            spyOn(authUtilsService.jwtHelperService, 'isTokenExpired').and.returnValue(true);
+            expect(authUtilsService._jwtIsValid()).toBeFalse();
+            expect(authUtilsService.jwtHelperService.isTokenExpired).toHaveBeenCalled();
+        });
+    });
 });

@@ -1,20 +1,17 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { UtilityService } from '@modules/utility/services';
-import { UtilityServiceStub } from '@testing/stubs/utility';
+import { UtilityService } from '@common/services';
+import { UtilityServiceStub } from '@testing/stubs';
 
 import { VersionComponent } from './version.component';
 
 @Component({
     template: `
-        <sb-version [someInput]="someInput" (someFunction)="someFunction($event)"></sb-version>
+        <sb-version></sb-version>
     `,
 })
-class TestHostComponent {
-    // someInput = 1;
-    // someFunction(event: Event) {}
-}
+class TestHostComponent {}
 
 describe('VersionComponent', () => {
     let fixture: ComponentFixture<TestHostComponent>;
@@ -27,6 +24,7 @@ describe('VersionComponent', () => {
     let componentNE: Element;
 
     let utilityService: UtilityService;
+    const utilityServiceStub = UtilityServiceStub;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

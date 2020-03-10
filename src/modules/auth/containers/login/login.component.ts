@@ -25,11 +25,10 @@ export class LoginComponent implements OnInit {
                 .subscribe();
         }
 
+        // tslint:disable-next-line: forin
         for (const key in this.loginForm.controls) {
-            if (this.loginForm.controls.hasOwnProperty(key)) {
-                const control = this.loginForm.controls[key];
-                control.markAllAsTouched();
-            }
+            const control = this.loginForm.controls[key];
+            control.markAllAsTouched();
         }
     }
 

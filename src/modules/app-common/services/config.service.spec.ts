@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-// import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { MockConfig } from '@testing/mocks';
 
 import { ConfigService } from './config.service';
 
@@ -23,10 +23,14 @@ describe('ConfigService', () => {
     });
 
     describe('handle', () => {
-        it('should show error message in toastr', () => {
-            // spyOn(toastrService, 'error');
-            // errorService.handle(new Error('TEST_ERROR'), 'TEST_TITLE');
-            // expect(toastrService.error).toHaveBeenCalledWith('TEST_ERROR', 'TEST_TITLE');
+        it('should loadConfig', () => {
+            const mockConfig = new MockConfig();
+            const config = configService.loadConfig();
+            const req = httpTestingController.expectOne('assets/config.json');
+            expect(req.request.method).toEqual('GET');
+            req.flush(mockConfig);
+            httpTestingController.verify();
+            expect(configService.config).toEqual(mockConfig);
         });
     });
 });
