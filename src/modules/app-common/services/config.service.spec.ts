@@ -25,7 +25,7 @@ describe('ConfigService', () => {
     describe('handle', () => {
         it('should loadConfig', () => {
             const mockConfig = new MockConfig();
-            const config = configService.loadConfig();
+            configService.loadConfig();
             const req = httpTestingController.expectOne('assets/config.json');
             expect(req.request.method).toEqual('GET');
             req.flush(mockConfig);

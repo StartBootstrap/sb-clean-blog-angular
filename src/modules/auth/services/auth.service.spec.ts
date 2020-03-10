@@ -7,6 +7,7 @@ import { TestLoginPayload } from '@start-bootstrap/sb-clean-blog-shared-types';
 import { MockUser } from '@testing/mocks';
 import { AuthUtilsServiceStub, ConfigServiceStub, RouterStub } from '@testing/stubs';
 import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { AuthUtilsService } from '.';
 import { AuthService } from './auth.service';
@@ -42,22 +43,41 @@ describe('AuthService', () => {
 
     describe('login$', () => {
         it('should return Observable<true> when logged in correctly', () => {
-            // spyOn(authUtilsService, 'processToken$').and.callFake(() => {
-            //     return of(new MockUser());
-            // });
-            const loginObservable = authService
+            spyOn(router, 'navigate').and.callFake(() => Promise.resolve(true));
+            spyOn(authUtilsService, 'processToken$').and.callFake(() => of(new MockUser()));
+            authService.login$(new TestLoginPayload()).subscribe(response => {
+                expect(response).toBeTruthy();
+            });
+            const req = httpTestingController.expectOne(
+                'http://localhost:8200/api/latest/auth/login'
+            );
+            expect(req.request.method).toEqual('POST');
+            req.flush('TEST_TOKEN');
+            expect(authUtilsService.processToken$).toHaveBeenCalled();
+            expect(router.navigate).toHaveBeenCalled();
+        });
+
+        it('should handle errors', () => {
+            spyOn(router, 'navigate').and.callFake(() => Promise.resolve(true));
+            spyOn(authUtilsService, 'processToken$').and.throwError(new Error('TEST'));
+            authService
                 .login$(new TestLoginPayload())
+                .pipe(
+                    catchError((error: Error) => {
+                        expect(error).toBeDefined();
+                        return of(false);
+                    })
+                )
                 .subscribe(response => {
-                    expect(response).toBeTruthy();
+                    expect(response).toBeFalsy();
                 });
             const req = httpTestingController.expectOne(
                 'http://localhost:8200/api/latest/auth/login'
             );
             expect(req.request.method).toEqual('POST');
-            req.flush(of('TEST_TOKEN'));
-            // expect(authUtilsService.processToken$).toHaveBeenCalled();
+            req.flush('TEST_TOKEN');
+            expect(authUtilsService.processToken$).toHaveBeenCalled();
+            expect(router.navigate).not.toHaveBeenCalled();
         });
-
-        it('should error if no user', () => {});
     });
 });

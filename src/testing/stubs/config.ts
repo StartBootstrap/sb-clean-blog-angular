@@ -7,8 +7,6 @@ export class ConfigServiceStub implements Partial<ConfigService> {
 
     loadConfig() {
         this.config = new MockConfig();
-        console.log(this.config);
-
         return Promise.resolve(this.config);
     }
 }

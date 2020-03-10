@@ -120,7 +120,7 @@ describe('Auth Utils Service', () => {
     describe('Observables', () => {
         it('should return _isLoggedIn$ Observable', () => {
             authUtilsService.isLoggedIn$().subscribe(response => {
-                expect(response).toBeFalse();
+                expect(response).toBeDefined();
             });
         });
         it('should return _decodeToken$ Observable', () => {

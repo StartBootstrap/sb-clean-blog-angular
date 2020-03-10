@@ -54,10 +54,9 @@ export class RouterStub {
     >({} as RouterEvent);
     url = 'test';
     navigate() {}
+    navigateByUrl() {}
 }
 
 export const ChangeDetectorRefStub = {
-    detectChanges: () => {
-        console.log('asd');
-    },
+    detectChanges: () => {},
 };

@@ -50,11 +50,10 @@ export class PostFormComponent implements OnInit {
             }
         }
 
+        // tslint:disable-next-line: forin
         for (const key in this.newPostForm.controls) {
-            if (this.newPostForm.controls.hasOwnProperty(key)) {
-                const control = this.newPostForm.controls[key];
-                control.markAllAsTouched();
-            }
+            const control = this.newPostForm.controls[key];
+            control.markAllAsTouched();
         }
     }
 

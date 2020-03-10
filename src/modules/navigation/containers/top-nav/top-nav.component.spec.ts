@@ -1,7 +1,7 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AuthUtilsService } from '@modules/auth/services';
 import { NavigationService } from '@modules/navigation/services';
 import {
@@ -35,6 +35,7 @@ describe('TopNavComponent', () => {
 
     let navigationService: NavigationService;
     let authUtilsService: AuthUtilsService;
+    let activatedRoute: ActivatedRoute;
     let router: Router;
 
     beforeEach(() => {
@@ -61,6 +62,7 @@ describe('TopNavComponent', () => {
 
         navigationService = TestBed.inject(NavigationService);
         authUtilsService = TestBed.inject(AuthUtilsService);
+        activatedRoute = TestBed.inject(ActivatedRoute);
         router = TestBed.inject(Router);
 
         fixture.detectChanges();
@@ -68,5 +70,14 @@ describe('TopNavComponent', () => {
 
     it('should display the component', () => {
         expect(hostComponentNE.querySelector('sb-top-nav')).toEqual(jasmine.anything());
+    });
+
+    it('should editPost', () => {
+        spyOn(router, 'navigateByUrl');
+        activatedRoute.snapshot = ({
+            params: { post: 'TEST' },
+        } as unknown) as ActivatedRouteSnapshot;
+        component.editPost();
+        expect(router.navigateByUrl).toHaveBeenCalled();
     });
 });

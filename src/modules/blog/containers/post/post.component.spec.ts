@@ -60,4 +60,10 @@ describe('PostComponent', () => {
     it('should display the component', () => {
         expect(hostComponentNE.querySelector('sb-post')).toEqual(jasmine.anything());
     });
+
+    it('should editPost', () => {
+        spyOn(router, 'navigateByUrl');
+        component.editPost();
+        expect(router.navigateByUrl).toHaveBeenCalled();
+    });
 });
