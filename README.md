@@ -1,5 +1,7 @@
 # SB Clean Blog Angular
 
+[![Build Status](https://travis-ci.org/StartBootstrap/sb-clean-blog-angular.svg?branch=master)](https://travis-ci.org/StartBootstrap/sb-clean-blog-angular)
+
 SB Clean Blog Angular is a free and open-sourced Bootstrap themed Angular 9 starter project.
 
 It shares the same project structure and subset of tooling from our professional offering,
