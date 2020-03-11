@@ -1,0 +1,36 @@
+<form class="mb-5" id="newPostForm" [formGroup]="newPostForm" (ngSubmit)="onSubmit()">
+    <h2 class="text-white mb-4">Post Content</h2>
+    <div class="form-group">
+        <input class="form-control py-4" id="headingInput" data-cy="headingInput" type="text" placeholder="Post heading" formControlName="heading" [class.is-valid]="headingControlValid" [class.is-invalid]="headingControlInvalid" />
+        <div class="invalid-feedback" *ngIf='headingControl.hasError("required")'>Heading required</div>
+        <div class="invalid-feedback" *ngIf='headingControl.hasError("heading")'>Heading is not valid</div>
+    </div>
+    <div class="form-group">
+        <input class="form-control py-4" id="subHeadingInput" data-cy="subHeadingInput" type="text" placeholder="Post subheading" formControlName="subHeading" [class.is-valid]="subHeadingControlValid" [class.is-invalid]="subHeadingControlInvalid" />
+        <div class="invalid-feedback" *ngIf='subHeadingControl.hasError("required")'>Subheading required</div>
+        <div class="invalid-feedback" *ngIf='subHeadingControl.hasError("subHeading")'>Subheading is not valid</div>
+    </div>
+    <div class="form-group">
+        <input class="form-control py-4" id="backgroundImageInput" data-cy="backgroundImageInput" type="text" placeholder="Post background image (enter a URL)" formControlName="backgroundImage" [class.is-valid]="backgroundImageControlValid" [class.is-invalid]="backgroundImageControlInvalid" />
+        <div class="form-text text-white-50">Use an image URL (ex. https://source.unsplash.com/WLUHO9A_xik/1600x900)</div>
+        <div class="invalid-feedback" *ngIf='backgroundImageControl.hasError("required")'>Background image required</div>
+        <div class="invalid-feedback" *ngIf='backgroundImageControl.hasError("backgroundImage")'>Background image is not valid</div>
+    </div>
+    <div class="form-group">
+        <textarea class="form-control py-3" id="bodyInput" autosize data-cy="bodyInput" placeholder="Post body text (markdown supported)" formControlName="body" [class.is-valid]="bodyControlValid" [class.is-invalid]="bodyControlInvalid"></textarea>
+        <div class="form-text text-white-50"><fa-icon class="mr-1" [icon]='["fab", "markdown"]'></fa-icon>Markdown supported</div>
+        <div class="invalid-feedback" *ngIf='bodyControl.hasError("required")'>Body content required</div>
+        <div class="invalid-feedback" *ngIf='bodyControl.hasError("body")'>Body content is not valid</div>
+    </div>
+    <div class="form-group d-flex align-items-center justify-content-between"><button class="btn btn-primary" *ngIf="!post" data-cy="createButton" type="submit" [disabled]="newPostForm.invalid">Create Post</button><button class="btn btn-primary" *ngIf="post" data-cy="updateButton" type="submit" [disabled]="newPostForm.invalid">Update Post</button></div>
+</form>
+<h2 class="text-white mb-4">Post Preview</h2>
+<markdown class="p-4 mb-4" id="newPostPreview" [data]="bodyControl.value"></markdown><button class="btn btn-danger" *ngIf="post" (click)='open(modalDeletePostWarning, {backdrop: "static"})'>Delete Post</button
+><ng-template #modalDeletePostWarning let-modal
+    ><div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button class="close" type="button" aria-label="Close" (click)='modal.dismiss("CANCEL")'><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="modal-body small"><div class="text-danger">Warning: Deleting a post is permamnent. This action cannot be undone.</div></div>
+    <div class="modal-footer"><button class="btn btn-danger" type="button" (click)='modal.close("CONFIRM")'>Delete Post</button><button class="btn btn-secondary" type="button" (click)='modal.close("CANCEL")'>Cancel</button></div></ng-template
+>

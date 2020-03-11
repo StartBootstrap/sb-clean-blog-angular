@@ -3,17 +3,17 @@
 SB Clean Blog Angular is a free and open-sourced Bootstrap themed Angular 9 starter project.
 
 It shares the same project structure and subset of tooling from our professional offering,
-[SB Clean Blog Pro Angular](https://themes.startbootstrap.com/sb-clean-blog-pro-angular/),
-so much of the [SB Clean Blog Pro Angular Documentation](https://docs.startbootstrap.com/sb-clean-blog-pro-angular/quickstart) is applicable.
+[SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/),
+so much of the [SB Admin Pro Angular Documentation](https://docs.startbootstrap.com/sb-admin-pro-angular/quickstart) is applicable.
 
-In particular the documentation for [Structure](https://docs.startbootstrap.com/sb-clean-blog-pro-angular/structure-root-level),
-and the documentation for [SBPro Schematics](https://docs.startbootstrap.com/sb-clean-blog-pro-angular/development-general#sb-pro-schematics)
+In particular the documentation for [Structure](https://docs.startbootstrap.com/sb-admin-pro-angular/structure-root-level),
+and the documentation for [SBPro Schematics](https://docs.startbootstrap.com/sb-admin-pro-angular/development-general#sb-pro-schematics)
 
 SB Clean Blog Angular comes with a base implementation of navigation and layouts.
 
 For professionally designed components (including an advanced SideNav), 100% code coverage,
 starter cypress tests and more, please consider our professional offering:
-[SB Clean Blog Pro Angular](https://themes.startbootstrap.com/sb-clean-blog-pro-angular/)
+[SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/)
 
 ## Quick Start
 
@@ -46,11 +46,14 @@ npm run test
 
 ```bash
 npm run e2e
+
+# To run against currently running server instead of launching a new server
+npm run e2e:running
 ```
 
 ## Production
 
-SB Clean Blog Angular come with a production ready Dockerfile and build scripts.
+SB Clean Blog Angular comes with a production ready Dockerfile and build scripts.
 
 You can get Docker [here](https://www.docker.com/get-started)
 
@@ -84,11 +87,11 @@ Obviously this can become subjective, but MVCC is the paradigm that we subscribe
 
 ### npm start
 
-If you receive memory issues (most likely on Linux, but could technically happen on any system) adjust
+If you receive memory issues adjust
 `max_old_space_size` in the `ng` command of the `package.json`:
 
 ```json
-"ng": "node --max_old_space_size=2048 ./node_modules/.bin/ng",
+"ng": "cross-env NODE_OPTIONS=--max_old_space_size=2048 ./node_modules/.bin/ngngu",
 ```
 
 You can adjust 2048 to any number you need.

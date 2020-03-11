@@ -1,19 +1,32 @@
 nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
     .container
-        a.navbar-brand(href='index.html') Start Bootstrap
+        a.navbar-brand(routerLink='/') Start Bootstrap
         button.navbar-toggler.navbar-toggler-right(
             type='button',
-            data-toggle='collapse',
-            data-target='#navbarResponsive',
+            (click)='isMenuCollapsed = !isMenuCollapsed',
             aria-controls='navbarResponsive',
             aria-expanded='false',
             aria-label='Toggle navigation'
         )
             | Menu
-            i.fas.fa-bars
-        .collapse.navbar-collapse#navbarResponsive
+            fa-icon.ml-1([icon]='["fas", "bars"]')
+        .collapse.navbar-collapse([ngbCollapse]='isMenuCollapsed')
             ul.navbar-nav.ml-auto
                 li.nav-item
-                    a.nav-link(routerLink='/blog/home') Home
+                    a.nav-link(routerLink='/') Home
                 li.nav-item
-                    a.nav-link(href='/blog/about') About
+                    a.nav-link(routerLink='/about') About
+                    
+                li.nav-item(
+                    *ngIf='isLoggedIn && isOnPost'
+                )
+                    a.nav-link.pointer(
+                        (click)='editPost()',
+                    ) Edit Post
+
+            form.form-inline.ml-lg-2(
+                *ngIf='isLoggedIn'
+            )
+                a.btn.btn-primary(routerLink='/new') New Post
+                
+                

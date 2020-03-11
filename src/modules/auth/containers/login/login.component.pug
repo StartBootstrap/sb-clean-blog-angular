@@ -2,24 +2,26 @@ sb-layout-auth
     .container
         .row.justify-content-center
             .col-lg-5
-                .card.shadow-lg.border-0.rounded-lg.mt-5
-                    .card-header
-                        h3.text-center.font-weight-light.my-4 Login
-                    .card-body
-                        form
-                            .form-group
-                                label.small.mb-1(for='inputEmailAddress') Email
-                                input#inputEmailAddress.form-control.py-4(type='email', placeholder='Enter email address')
-                            .form-group
-                                label.small.mb-1(for='inputPassword') Password
-                                input#inputPassword.form-control.py-4(type='password', placeholder='Enter password')
-                            .form-group
-                                .custom-control.custom-checkbox
-                                    input#rememberPasswordCheck.custom-control-input(type='checkbox')
-                                    label.custom-control-label(for='rememberPasswordCheck') Remember password
-                            .form-group.d-flex.align-items-center.justify-content-between.mt-4.mb-0
-                                a.small(routerLink='/auth/forgot-password') Forgot Password?
-                                a.btn.btn-primary(routerLink='/dashboard') Login
-                    .card-footer.text-center
-                        .small
-                            a(routerLink='/auth/register') Need an account? Sign up!
+                h5.text-white.text-center.mt-5 Enter admin password
+                form.form-inline.justify-content-between(
+                    [formGroup]='loginForm',
+                    (ngSubmit)='onSubmit()'
+                )
+                    input#inputPassword.form-control.py-4.mr-2.my-2(
+                        data-cy='passwordInput',
+                        type='password',
+                        formControlName='password',
+                        [class.is-valid]='passwordControlValid',
+                        [class.is-invalid]='passwordControlInvalid'
+                    )
+
+                    button.btn.btn-primary(
+                        data-cy='loginButton',
+                        type='submit',
+                        [disabled]='loginForm.invalid'
+                    ) Login
+
+                    .invalid-feedback(*ngIf='passwordControl.hasError("required")')
+                        | Password required.
+                    .invalid-feedback(*ngIf='passwordControl.hasError("minlength")')
+                        | Password must be at least 8 characters.

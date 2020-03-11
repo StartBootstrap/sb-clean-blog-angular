@@ -3,8 +3,7 @@ import { NavigationService } from '@modules/navigation/services';
 import { of } from 'rxjs';
 
 export const NavigationServiceStub: Partial<NavigationService> = {
-    sideNavVisible$: () => of(true),
-    toggleSideNav: (visibility?: boolean) => {},
     routeData$: () => of({} as SBRouteData),
-    currentURL$: () => of('TEST_URL'),
+    currentURL$: () => of('TEST_CURRENT_URL'),
+    currentComponent$: () => of('TEST_CURRENT_COMPONENT'),
 };

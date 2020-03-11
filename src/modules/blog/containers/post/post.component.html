@@ -1,0 +1,10 @@
+<sb-layout-blog *ngIf="(post$ | async) as post;"
+    ><sb-clean-blog-header [backgroundImage]="post.backgroundImage" [heading]="post.heading" [subHeading]="post.subHeading" [meta]="post.meta"></sb-clean-blog-header>
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto"><markdown ngPreserveWhitespaces>{{post.body}}</markdown><button class="btn btn-primary" type="button" (click)="editPost()">Edit Post</button></div>
+            </div>
+        </div>
+    </article></sb-layout-blog
+>

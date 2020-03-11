@@ -45,6 +45,6 @@ describe('LayoutBlogComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-layout-blog')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-layout-blog')).toEqual(jasmine.anything());
     });
 });

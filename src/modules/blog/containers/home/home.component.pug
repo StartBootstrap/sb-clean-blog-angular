@@ -1,6 +1,21 @@
-sb-clean-blog-header(
-    backgroundImage='url("assets/img/home-bg.jpg")',
-    heading='Clean Blog',
-    subHeading='Blog Theme by Start Bootstrap',
-    [siteHeading]='true'
-)
+sb-layout-blog
+    sb-clean-blog-header(
+        backgroundImage='url("assets/img/home-bg.jpg")',
+        heading='Clean Blog',
+        subHeading='Blog Theme by Start Bootstrap',
+        [siteHeading]='true'
+    )
+    ng-container(
+        *ngIf='posts$ | async as posts'
+    )
+        .container
+            .row
+                .col-lg-8.col-md-10.mx-auto
+                    .post-preview(
+                        *ngFor='let post of posts'
+                    )
+                        a([routerLink]='post.slug')
+                            h2.post-title {{post.heading}}
+                            h3.post-subtitle {{post.subHeading}}
+                                
+                        p.post-meta {{post.meta}}

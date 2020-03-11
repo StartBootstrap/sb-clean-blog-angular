@@ -1,5 +1,5 @@
-import { BlogGuard } from './blog.guard';
+import { PostGuard } from './blog.guard';
 
-export const guards = [BlogGuard];
+export const guards = [PostGuard];
 
 export * from './blog.guard';

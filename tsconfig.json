@@ -1,6 +1,6 @@
 {
     "angularCompilerOptions": {
-        "enableIvy": false,
+        "enableIvy": true,
         "fullTemplateTypeCheck": true,
         "preserveWhitespaces": false,
         "strictInjectionParameters": true

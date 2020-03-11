@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Post } from '@modules/blog/models';
+import { BlogService } from '@modules/blog/services';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'sb-home',
@@ -7,6 +10,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     styleUrls: ['home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-    constructor() {}
-    ngOnInit() {}
+    posts$!: Observable<Post[]>;
+    constructor(private blogService: BlogService) {}
+    ngOnInit() {
+        this.posts$ = this.blogService.getPosts$();
+    }
 }

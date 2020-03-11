@@ -45,6 +45,6 @@ describe('CleanBlogHeaderComponent', () => {
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sbpro-clean-blog-header')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-clean-blog-header')).toEqual(jasmine.anything());
     });
 });

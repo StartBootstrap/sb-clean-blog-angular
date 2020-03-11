@@ -1,0 +1,105 @@
+form#newPostForm.mb-5([formGroup]='newPostForm', (ngSubmit)='onSubmit()')
+    h2.text-white.mb-4 Post Content
+    .form-group
+        input#headingInput.form-control.py-4(
+            data-cy='headingInput',
+            type='text',
+            placeholder='Post heading',
+            formControlName='heading',
+            [class.is-valid]='headingControlValid',
+            [class.is-invalid]='headingControlInvalid'
+        )
+        .invalid-feedback(*ngIf='headingControl.hasError("required")')
+            | Heading required
+        .invalid-feedback(*ngIf='headingControl.hasError("heading")')
+            | Heading is not valid
+
+    .form-group
+        input#subHeadingInput.form-control.py-4(
+            data-cy='subHeadingInput',
+            type='text',
+            placeholder='Post subheading',
+            formControlName='subHeading',
+            [class.is-valid]='subHeadingControlValid',
+            [class.is-invalid]='subHeadingControlInvalid'
+        )
+        .invalid-feedback(*ngIf='subHeadingControl.hasError("required")')
+            | Subheading required
+        .invalid-feedback(*ngIf='subHeadingControl.hasError("subHeading")')
+            | Subheading is not valid
+
+    .form-group
+        input#backgroundImageInput.form-control.py-4(
+            data-cy='backgroundImageInput',
+            type='text',
+            placeholder='Post background image (enter a URL)',
+            formControlName='backgroundImage',
+            [class.is-valid]='backgroundImageControlValid',
+            [class.is-invalid]='backgroundImageControlInvalid'
+        )
+        .form-text.text-white-50 Use an image URL (ex. https://source.unsplash.com/WLUHO9A_xik/1600x900)
+        .invalid-feedback(*ngIf='backgroundImageControl.hasError("required")')
+            | Background image required
+        .invalid-feedback(*ngIf='backgroundImageControl.hasError("backgroundImage")')
+            | Background image is not valid
+
+    .form-group
+        textarea.form-control.py-3#bodyInput(
+            autosize,
+            data-cy='bodyInput',
+            placeholder='Post body text (markdown supported)',
+            formControlName='body',
+            [class.is-valid]='bodyControlValid',
+            [class.is-invalid]='bodyControlInvalid'
+        )
+        .form-text.text-white-50
+            fa-icon.mr-1([icon]='["fab", "markdown"]')
+            | Markdown supported
+        .invalid-feedback(*ngIf='bodyControl.hasError("required")')
+            | Body content required
+        .invalid-feedback(*ngIf='bodyControl.hasError("body")')
+            | Body content is not valid
+
+    .form-group.d-flex.align-items-center.justify-content-between
+        button.btn.btn-primary(
+            *ngIf='!post',
+            data-cy='createButton',
+            type='submit',
+            [disabled]='newPostForm.invalid'
+        ) Create Post
+        button.btn.btn-primary(
+            *ngIf='post',
+            data-cy='updateButton',
+            type='submit',
+            [disabled]='newPostForm.invalid'
+        ) Update Post
+
+h2.text-white.mb-4 Post Preview
+
+markdown#newPostPreview.p-4.mb-4([data]='bodyControl.value')
+
+button.btn.btn-danger(
+    *ngIf='post',
+    (click)='open(modalDeletePostWarning, {backdrop: "static"})'
+) Delete Post
+
+ng-template(#modalDeletePostWarning, let-modal)
+    .modal-header
+        h5.modal-title Confirm Delete
+        button.close(
+            type='button',
+            aria-label='Close',
+            (click)='modal.dismiss("CANCEL")'
+        )
+            span(aria-hidden='true') ×
+    .modal-body.small
+        .text-danger Warning: Deleting a post is permamnent. This action cannot be undone.
+    .modal-footer
+        button.btn.btn-danger(
+            type='button',
+            (click)='modal.close("CONFIRM")'
+        ) Delete Post
+        button.btn.btn-secondary(
+            type='button',
+            (click)='modal.close("CANCEL")'
+        ) Cancel

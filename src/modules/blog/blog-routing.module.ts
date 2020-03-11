@@ -15,14 +15,24 @@ import * as blogGuards from './guards';
 export const ROUTES: Routes = [
     {
         path: '',
-        canActivate: [],
-        component: blogContainers.BlogComponent,
-        children: [
-            {
-                path: '',
-                component: blogContainers.HomeComponent,
-            },
-        ],
+        component: blogContainers.HomeComponent,
+    },
+    {
+        path: 'about',
+        component: blogContainers.AboutComponent,
+    },
+    {
+        path: 'new',
+        component: blogContainers.NewPostComponent,
+    },
+    {
+        path: 'edit/:post',
+        component: blogContainers.EditPostComponent,
+    },
+    {
+        path: ':post',
+        canActivate: [blogGuards.PostGuard],
+        component: blogContainers.PostComponent,
     },
 ];
 
