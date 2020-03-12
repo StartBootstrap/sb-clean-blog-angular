@@ -9,7 +9,7 @@ import {
     UpdatePostPayload,
 } from '@start-bootstrap/sb-clean-blog-shared-types';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class BlogService {
@@ -27,12 +27,7 @@ export class BlogService {
                     (posts as Post[]).map(post => {
                         return post;
                     })
-                ),
-                catchError((error: Error) => {
-                    console.log(error);
-                    // Have to return this in order to not freeze app when redirecting from interceptor
-                    return [[]];
-                })
+                )
             );
     }
 
@@ -45,15 +40,7 @@ export class BlogService {
                     params,
                 }
             )
-            .pipe(
-                map(post => post as Post),
-                catchError((error: Error) => {
-                    console.log(error);
-                    this.router.navigate(['/error/404']);
-                    // Have to return this in order to not freeze app when redirecting from interceptor
-                    return [];
-                })
-            );
+            .pipe(map(post => post as Post));
     }
 
     createPost$(payload: CreatePostPayload): Observable<Post | Error> {
@@ -64,13 +51,7 @@ export class BlogService {
             )
             .pipe(
                 tap(response => this.router.navigate([`/${response.slug}`])),
-                map(post => post as Post),
-                catchError((error: Error) => {
-                    console.log(error);
-                    this.router.navigate([`/error/${error.status}`]);
-                    // Have to return this in order to not freeze app when redirecting from interceptor
-                    return [error];
-                })
+                map(post => post as Post)
             );
     }
 
@@ -80,15 +61,7 @@ export class BlogService {
                 `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${post.id}`,
                 payload
             )
-            .pipe(
-                tap(response => this.router.navigate([`/${post.slug}`])),
-                catchError((error: Error) => {
-                    console.log(error);
-                    this.router.navigate([`/error/${error.status}`]);
-                    // Have to return this in order to not freeze app when redirecting from interceptor
-                    return [error];
-                })
-            );
+            .pipe(tap(response => this.router.navigate([`/${post.slug}`])));
     }
 
     deletePost$(id: UUID): Observable<undefined | Error> {
@@ -96,14 +69,6 @@ export class BlogService {
             .delete<undefined>(
                 `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${id}`
             )
-            .pipe(
-                tap(response => this.router.navigate([`/`])),
-                catchError((error: Error) => {
-                    console.log(error);
-                    this.router.navigate([`/error/${error.status}`]);
-                    // Have to return this in order to not freeze app when redirecting from interceptor
-                    return [error];
-                })
-            );
+            .pipe(tap(response => this.router.navigate([`/`])));
     }
 }

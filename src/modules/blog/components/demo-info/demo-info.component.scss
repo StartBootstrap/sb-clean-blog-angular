@@ -1,0 +1,11 @@
+@import 'styles/variables.scss';
+
+:host {
+    position: fixed;
+    top: 100px;
+    right: 0px;
+    background-color: white;
+    button {
+        border-right: none;
+    }
+}

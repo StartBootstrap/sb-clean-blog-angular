@@ -1,11 +1,12 @@
 /* tslint:disable: ordered-imports*/
 import { NgModule, APP_INITIALIZER, ModuleWithProviders, SecurityContext } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { Config } from '@common/models';
+import * as authServices from '@modules/auth/services';
 
 /* Third Party */
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,13 +27,14 @@ import * as appCommonGuards from './guards';
 
 /* Services */
 import * as appCommonServices from './services';
-import * as authServices from '@modules/auth/services';
+
+/* Interceptors */
+import { interceptors } from './interceptors';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
-        HttpClientModule,
         ...thirdParty,
         MarkdownModule.forRoot({ sanitize: SecurityContext.NONE }),
     ],
@@ -53,6 +55,18 @@ export class AppCommonModule {
                     multi: true,
                     deps: [appCommonServices.ConfigService, appCommonServices.PrismService],
                 },
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useFactory: authInterceptorFactory,
+                    multi: true,
+                    deps: [Router, authServices.AuthUtilsService],
+                },
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useFactory: demoInterceptorFactory,
+                    multi: true,
+                    deps: [appCommonServices.UtilityService],
+                },
             ],
         };
     }
@@ -62,4 +76,15 @@ export function configServiceFactory(
     configService: appCommonServices.ConfigService
 ): () => Promise<Config> {
     return () => configService.loadConfig();
+}
+
+export function authInterceptorFactory(
+    router: Router,
+    authUtilsService: authServices.AuthUtilsService
+) {
+    return new interceptors.AuthInterceptor(router, authUtilsService);
+}
+
+export function demoInterceptorFactory(utilityServuce: appCommonServices.UtilityService) {
+    return new interceptors.DemoInterceptor(utilityServuce);
 }

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { MarkdownModule } from 'ngx-markdown';
 import { AutosizeModule } from 'ngx-autosize';
@@ -30,7 +29,6 @@ import * as blogServices from './services';
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule,
         MarkdownModule.forChild(),
         AutosizeModule,
         AppCommonModule,
