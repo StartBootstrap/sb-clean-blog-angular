@@ -7,11 +7,15 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UtilityService } from '@common/services';
+import { CreatePostPayload, UpdatePostPayload } from '@start-bootstrap/sb-clean-blog-shared-types';
 import { Post } from '@testing/mocks';
+import { paramCase } from 'change-case';
 import base64 from 'crypto-js/enc-base64';
 import utf8 from 'crypto-js/enc-utf8';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
+import { format } from 'date-fns';
 import { Observable, of } from 'rxjs';
+import { v4 as uuid } from 'uuid';
 
 import demoConfig from './demo.config.json';
 
@@ -52,8 +56,29 @@ export class DemoInterceptor implements HttpInterceptor {
         }
 
         if (request.url.match(/\/api\/latest\/posts$/)) {
-            // getPosts$
-            return of(new HttpResponse({ status: 200, body: demoConfig.posts }));
+            switch (request.method) {
+                case 'GET':
+                    // getPosts$
+                    return of(new HttpResponse({ status: 200, body: this.posts }));
+                case 'POST':
+                    // createPost$
+                    const body = request.body as CreatePostPayload;
+                    const slug = body.slug
+                        ? paramCase(body.slug).toLowerCase()
+                        : paramCase(body.heading).toLowerCase();
+                    const newPost = {
+                        id: uuid(),
+                        slug,
+                        backgroundImage: `url("${body.backgroundImage}")`,
+                        heading: body.heading,
+                        subHeading: body.subHeading,
+                        body: body.body,
+                        meta: format(new Date(), 'MMMM d, yyyy'),
+                    };
+                    this.posts.unshift(newPost);
+                    this._savePosts();
+                    return of(new HttpResponse({ status: 200, body: newPost }));
+            }
         }
 
         if (request.url.match(/\/api\/latest\/posts\/.+$/)) {
@@ -71,14 +96,33 @@ export class DemoInterceptor implements HttpInterceptor {
                     }
                     console.log(`### ERROR: Issue with getPost$ in DemoInterceptor`);
                     return of({} as HttpEvent<unknown>);
-                case 'POST':
-                    // createPost$
-                    return of({} as HttpEvent<unknown>);
                 case 'PUT':
                     // updatePost$
+                    const updatePostPayload = request.body as UpdatePostPayload;
+                    const updatePostID = request.url.match(/[\w-]+$/);
+                    if (updatePostID) {
+                        const foundPost = this.posts.find(post => post.id === updatePostID[0]);
+                        updatePostPayload.backgroundImage = updatePostPayload.backgroundImage
+                            ? `url("${updatePostPayload.backgroundImage}")`
+                            : undefined;
+
+                        Object.assign(foundPost, updatePostPayload);
+                        this._savePosts();
+                        return of(new HttpResponse({ status: 200, body: undefined }));
+                    }
+
+                    console.log(`### ERROR: Issue with updatePost$ in DemoInterceptor`);
                     return of({} as HttpEvent<unknown>);
                 case 'DELETE':
                     // deletePost$
+                    const deletePostID = request.url.match(/[\w-]+$/);
+                    if (deletePostID) {
+                        this.posts = this.posts.filter(post => post.id !== deletePostID[0]);
+                        this._savePosts();
+                        return of(new HttpResponse({ status: 200, body: undefined }));
+                    }
+
+                    console.log(`### ERROR: Issue with deletePost$ in DemoInterceptor`);
                     return of({} as HttpEvent<unknown>);
             }
         }
