@@ -13,7 +13,7 @@ sh.exec(
     `docker run -d \
         -p ${PORT}:80 \
         --env SB_CLEAN_BLOG_NODE_URL=http://localhost:8200 \
-        --env DEMO_ENABLED=true \
+        --env DEMO_ENABLED=false \
         --name ${imageName} \
         ${imageName}:latest
     `
