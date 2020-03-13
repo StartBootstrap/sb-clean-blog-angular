@@ -1,3 +1,4 @@
 {
-    "sbCleanBlogNodeURL": "http://localhost:8200"
+    "sbCleanBlogNodeURL": "http://localhost:8200",
+    "demoEnabled": false
 }

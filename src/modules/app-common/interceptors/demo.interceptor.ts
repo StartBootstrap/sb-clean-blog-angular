@@ -6,7 +6,7 @@ import {
     HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UtilityService } from '@common/services';
+import { ConfigService, UtilityService } from '@common/services';
 import { CreatePostPayload, UpdatePostPayload } from '@start-bootstrap/sb-clean-blog-shared-types';
 import { Post } from '@testing/mocks';
 import { paramCase } from 'change-case';
@@ -26,7 +26,7 @@ export class DemoInterceptor implements HttpInterceptor {
     posts!: Post[];
     secret = 'SHHHHHHHHH';
 
-    constructor(private utilityService: UtilityService) {
+    constructor(private utilityService: UtilityService, private configService: ConfigService) {
         const demoPosts = this.utilityService.getStoredObject<Post[]>('DEMO_POSTS');
         if (demoPosts) {
             this.posts = demoPosts;
@@ -39,7 +39,7 @@ export class DemoInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         console.log(request);
 
-        if (!demoConfig.enabled) {
+        if (!this.configService.config || !this.configService.config.demoEnabled) {
             return next.handle(request);
         }
 

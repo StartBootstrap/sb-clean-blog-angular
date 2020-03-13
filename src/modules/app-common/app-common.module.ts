@@ -65,7 +65,7 @@ export class AppCommonModule {
                     provide: HTTP_INTERCEPTORS,
                     useFactory: demoInterceptorFactory,
                     multi: true,
-                    deps: [appCommonServices.UtilityService],
+                    deps: [appCommonServices.UtilityService, appCommonServices.ConfigService],
                 },
             ],
         };
@@ -85,6 +85,9 @@ export function authInterceptorFactory(
     return new interceptors.AuthInterceptor(router, authUtilsService);
 }
 
-export function demoInterceptorFactory(utilityServuce: appCommonServices.UtilityService) {
-    return new interceptors.DemoInterceptor(utilityServuce);
+export function demoInterceptorFactory(
+    utilityServuce: appCommonServices.UtilityService,
+    configServuce: appCommonServices.ConfigService
+) {
+    return new interceptors.DemoInterceptor(utilityServuce, configServuce);
 }
