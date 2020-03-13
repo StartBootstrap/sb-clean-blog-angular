@@ -37,8 +37,6 @@ export class DemoInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        console.log(request);
-
         if (!this.configService.config || !this.configService.config.demoEnabled) {
             return next.handle(request);
         }

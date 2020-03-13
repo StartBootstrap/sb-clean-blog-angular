@@ -1,1 +1,11 @@
 @import 'styles/variables.scss';
+
+:host {
+    fa-icon {
+        font-size: 20px;
+        vertical-align: text-top;
+    }
+    a.icon {
+        padding: 0 10px !important;
+    }
+}
