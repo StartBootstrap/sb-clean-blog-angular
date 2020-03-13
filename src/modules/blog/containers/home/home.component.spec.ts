@@ -1,8 +1,9 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthUtilsService } from '@modules/auth/services';
 import { BlogService } from '@modules/blog/services';
-import { BlogServiceStub } from '@testing/stubs';
+import { AuthUtilsServiceStub, BlogServiceStub } from '@testing/stubs';
 
 import { HomeComponent } from './home.component';
 
@@ -32,7 +33,10 @@ describe('HomeComponent', () => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, HomeComponent],
             imports: [NoopAnimationsModule],
-            providers: [{ provide: BlogService, useValue: BlogServiceStub }],
+            providers: [
+                { provide: BlogService, useValue: BlogServiceStub },
+                { provide: AuthUtilsService, useValue: AuthUtilsServiceStub },
+            ],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 

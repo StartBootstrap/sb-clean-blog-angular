@@ -2,8 +2,14 @@ import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthUtilsService } from '@modules/auth/services';
 import { BlogService } from '@modules/blog/services';
-import { ActivatedRouteStub, BlogServiceStub, RouterStub } from '@testing/stubs';
+import {
+    ActivatedRouteStub,
+    AuthUtilsServiceStub,
+    BlogServiceStub,
+    RouterStub,
+} from '@testing/stubs';
 
 import { PostComponent } from './post.component';
 
@@ -38,6 +44,7 @@ describe('PostComponent', () => {
                 { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}) },
                 { provide: Router, useValue: new RouterStub() },
                 { provide: BlogService, useValue: BlogServiceStub },
+                { provide: AuthUtilsService, useValue: AuthUtilsServiceStub },
             ],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
