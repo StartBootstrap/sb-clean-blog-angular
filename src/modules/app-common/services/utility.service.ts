@@ -30,4 +30,3 @@ export class UtilityService {
         this.localStorage.setItem(objectName, this.stringify(objectToStore));
     }
 }
-

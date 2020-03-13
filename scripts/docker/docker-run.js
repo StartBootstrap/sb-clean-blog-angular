@@ -9,7 +9,15 @@ if (isRunning) {
     sh.exec(`docker rm -f ${imageName}`);
 }
 
-sh.exec(`docker run -d --env SB_CLEAN_BLOG_NODE_URL=http://localhost:8200 --name ${imageName} -p ${PORT}:80 ${imageName}:latest`);
+sh.exec(
+    `docker run -d \
+        -p ${PORT}:80 \
+        --env SB_CLEAN_BLOG_NODE_URL=http://localhost:8200 \
+        --env DEMO_ENABLED=false \
+        --name ${imageName} \
+        ${imageName}:latest
+    `
+);
 sh.exec(`docker ps`);
 
 console.log(`\n\n### INFO: ${imageName} is running at:\n\n\thttp://localhost:${PORT}\n`);

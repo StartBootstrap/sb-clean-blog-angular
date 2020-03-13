@@ -1,6 +1,7 @@
 sb-layout-blog(
     *ngIf='(post$ | async) as post;',
 )
+    
     sb-clean-blog-header(
         [backgroundImage]='post.backgroundImage',
         [heading]='post.heading',
@@ -15,6 +16,7 @@ sb-layout-blog(
                     markdown(ngPreserveWhitespaces)
                         | {{post.body}}
                     button.btn.btn-primary(
+                        *ngIf='isLoggedIn',
                         type='button',
                         (click)='editPost()'
                     ) Edit Post

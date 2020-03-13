@@ -1,3 +1,4 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppCommonModule } from '@common/app-common.module';
@@ -11,10 +12,10 @@ import { AppComponent } from './app.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
+        HttpClientModule,
         AppCommonModule.forRoot(),
         NavigationModule.forRoot(),
     ],
-    providers: [],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -36,12 +36,26 @@ By default angular runs on port 4200. To change this port you can run:
 export PORT=4205 && npm start
 ```
 
+### Why do I not see any posts?
+
+Be sure you have [sb-clean-blog-node](https://github.com/StartBootstrap/sb-clean-blog-node) running.
+
+### How do I create/update/delete posts?
+
+Navigate to <http://localhost:4200/auth/login> 
+
+Use the password you set in the [sb-clean-blog-node](https://github.com/StartBootstrap/sb-clean-blog-node)
+.env file for: `DB_ROOT_USER_PASSWORD`
+
 ## Tests
 
 ### Unit Tests
 
 ```bash
 npm run test
+
+# To keep the test runner going as you devleop tests use:
+npm run test:dev
 ```
 
 ### e2e
@@ -60,7 +74,13 @@ SB Clean Blog Angular comes with a production ready Dockerfile and build scripts
 You can get Docker [here](https://www.docker.com/get-started)
 
 ```bash
+# Be sure to build the app first
+npm run build
+
+# Then build the docker image
 npm run docker:build
+
+# Then run the image
 npm run docker:run
 ```
 

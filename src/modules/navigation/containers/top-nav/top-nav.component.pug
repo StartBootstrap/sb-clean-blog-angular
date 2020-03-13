@@ -8,7 +8,6 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
             aria-expanded='false',
             aria-label='Toggle navigation'
         )
-            | Menu
             fa-icon.ml-1([icon]='["fas", "bars"]')
         .collapse.navbar-collapse([ngbCollapse]='isMenuCollapsed')
             ul.navbar-nav.ml-auto
@@ -16,7 +15,9 @@ nav.navbar.navbar-expand-lg.navbar-light.fixed-top#mainNav
                     a.nav-link(routerLink='/') Home
                 li.nav-item
                     a.nav-link(routerLink='/about') About
-                    
+                li.nav-item
+                    a.nav-link.icon(href='https://github.com/StartBootstrap/sb-clean-blog-angular', target='_blank')
+                        fa-icon([icon]='["fab", "github"]')
                 li.nav-item(
                     *ngIf='isLoggedIn && isOnPost'
                 )

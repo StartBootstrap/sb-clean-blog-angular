@@ -1,15 +1,12 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthUtilsService } from '@modules/auth/services';
-import { BlogService } from '@modules/blog/services';
-import { AuthUtilsServiceStub, BlogServiceStub } from '@testing/stubs';
 
-import { HomeComponent } from './home.component';
+import { DemoInfoComponent } from './demo-info.component';
 
 @Component({
     template: `
-        <sb-home [someInput]="someInput" (someFunction)="someFunction($event)"></sb-home>
+        <sb-demo-info [someInput]="someInput" (someFunction)="someFunction($event)"></sb-demo-info>
     `,
 })
 class TestHostComponent {
@@ -17,26 +14,21 @@ class TestHostComponent {
     // someFunction(event: Event) {}
 }
 
-describe('HomeComponent', () => {
+describe('DemoInfoComponent', () => {
     let fixture: ComponentFixture<TestHostComponent>;
     let hostComponent: TestHostComponent;
     let hostComponentDE: DebugElement;
     let hostComponentNE: Element;
 
-    let component: HomeComponent;
+    let component: DemoInfoComponent;
     let componentDE: DebugElement;
     let componentNE: Element;
 
-    let blogService: BlogService;
-
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestHostComponent, HomeComponent],
+            declarations: [TestHostComponent, DemoInfoComponent],
             imports: [NoopAnimationsModule],
-            providers: [
-                { provide: BlogService, useValue: BlogServiceStub },
-                { provide: AuthUtilsService, useValue: AuthUtilsServiceStub },
-            ],
+            providers: [],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
@@ -49,12 +41,10 @@ describe('HomeComponent', () => {
         component = componentDE.componentInstance;
         componentNE = componentDE.nativeElement;
 
-        blogService = TestBed.inject(BlogService);
-
         fixture.detectChanges();
     });
 
     it('should display the component', () => {
-        expect(hostComponentNE.querySelector('sb-home')).toEqual(jasmine.anything());
+        expect(hostComponentNE.querySelector('sb-demo-info')).toEqual(jasmine.anything());
     });
 });
