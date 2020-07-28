@@ -42,7 +42,7 @@ import { interceptors } from './interceptors';
     exports: [...appCommonContainers.containers, ...appCommonComponents.components, ...thirdParty],
 })
 export class AppCommonModule {
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<AppCommonModule> {
         return {
             ngModule: AppCommonModule,
             providers: [

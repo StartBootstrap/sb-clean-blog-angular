@@ -37,7 +37,7 @@ import * as navigationServices from './services';
 export class NavigationModule {
     constructor(private navServices: navigationServices.NavigationService) {}
 
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<NavigationModule> {
         return {
             ngModule: NavigationModule,
             providers: [...navigationServices.services, ...navigationGuards.guards],

@@ -6,7 +6,7 @@
             "node"
         ]
     },
-    "extends": "./tsconfig.json",
+    "extends": "./tsconfig.base.json",
     "files": [
         "src/test.ts",
         "src/polyfills.ts"

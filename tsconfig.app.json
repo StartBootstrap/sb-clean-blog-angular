@@ -8,7 +8,7 @@
         "src/test.ts",
         "src/**/*.spec.ts"
     ],
-    "extends": "./tsconfig.json",
+    "extends": "./tsconfig.base.json",
     "files": [
         "src/main.ts",
         "src/polyfills.ts"
