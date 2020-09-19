@@ -1,5 +1,5 @@
 /* tslint:disable: ordered-imports*/
-import { NgModule, ModuleWithProviders, APP_INITIALIZER } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -37,7 +37,7 @@ import * as navigationServices from './services';
 export class NavigationModule {
     constructor(private navServices: navigationServices.NavigationService) {}
 
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<NavigationModule> {
         return {
             ngModule: NavigationModule,
             providers: [...navigationServices.services, ...navigationGuards.guards],
