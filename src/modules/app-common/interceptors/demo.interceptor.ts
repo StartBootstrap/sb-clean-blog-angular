@@ -88,7 +88,7 @@ export class DemoInterceptor implements HttpInterceptor {
                         return of(
                             new HttpResponse({
                                 status: 200,
-                                body: this.posts.find(post => post.slug === slugMatch[0]),
+                                body: this.posts.find((post) => post.slug === slugMatch[0]),
                             })
                         );
                     }
@@ -99,7 +99,7 @@ export class DemoInterceptor implements HttpInterceptor {
                     const updatePostPayload = request.body as UpdatePostPayload;
                     const updatePostID = request.url.match(/[\w-]+$/);
                     if (updatePostID) {
-                        const foundPost = this.posts.find(post => post.id === updatePostID[0]);
+                        const foundPost = this.posts.find((post) => post.id === updatePostID[0]);
                         updatePostPayload.backgroundImage = updatePostPayload.backgroundImage
                             ? `url("${updatePostPayload.backgroundImage}")`
                             : undefined;
@@ -115,7 +115,7 @@ export class DemoInterceptor implements HttpInterceptor {
                     // deletePost$
                     const deletePostID = request.url.match(/[\w-]+$/);
                     if (deletePostID) {
-                        this.posts = this.posts.filter(post => post.id !== deletePostID[0]);
+                        this.posts = this.posts.filter((post) => post.id !== deletePostID[0]);
                         this._savePosts();
                         return of(new HttpResponse({ status: 200, body: undefined }));
                     }
@@ -133,7 +133,7 @@ export class DemoInterceptor implements HttpInterceptor {
     }
 
     _createToken() {
-        const stringifiedData = utf8.parse(
+        const stringifiedData: CryptoJS.lib.WordArray = utf8.parse(
             JSON.stringify({
                 id: 'test123',
                 firstName: 'Testy',
@@ -154,7 +154,7 @@ export class DemoInterceptor implements HttpInterceptor {
         return `${encodedHeader}.${encodedData}.${this._base64url(signature)}`;
     }
 
-    _base64url(source: unknown) {
+    _base64url(source: CryptoJS.lib.WordArray) {
         // Encode in classical base64
         let encodedSource = base64.stringify(source);
 
