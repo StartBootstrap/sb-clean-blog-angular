@@ -9,9 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2020-11-18
+
+- `[Changed]` Updated to Angular 11
+- `[Changed]` Upgraded all dependencies.
+
 ## [1.1.0] - 2020-09-18
 
-- `[Added]` Upgraded all dependencies.
+- `[Changed]` Upgraded all dependencies.
 - `[Added]` New release process.
 
 ## [1.0.0] - 2020-03-13
