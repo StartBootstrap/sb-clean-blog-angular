@@ -38,6 +38,7 @@ describe('NavigationService', () => {
                         id: 'TEST',
                     },
                 },
+                title: 'mySnap1',
             } as unknown) as ActivatedRouteSnapshot)
         );
         expect(navigationService._routeData$.next).toHaveBeenCalled();
