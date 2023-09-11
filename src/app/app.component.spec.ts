@@ -58,6 +58,7 @@ describe('AppComponent', () => {
                     firstChild: null,
                     data: {},
                 },
+                title: 'mySnap',
             } as unknown) as ActivatedRouteSnapshot)
         );
         expect(titleService.setTitle).toHaveBeenCalledTimes(1);
@@ -71,6 +72,7 @@ describe('AppComponent', () => {
                 data: {
                     title: 'TEST',
                 },
+                title: 'mySnapTEST',
             } as unknown) as ActivatedRouteSnapshot)
         );
         expect(titleService.setTitle).toHaveBeenCalledWith('TEST');
