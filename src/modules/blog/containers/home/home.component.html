@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="post-preview" *ngFor="let post of posts">
-                        <a [routerLink]="post.slug"
+                        <a [routerLink]="'/post' + post.slug"
                             ><h2 class="post-title">{{post.heading}}</h2>
                             <h3 class="post-subtitle">{{post.subHeading}}</h3></a
                         >

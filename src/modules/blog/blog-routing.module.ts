@@ -30,7 +30,7 @@ export const ROUTES: Routes = [
         component: blogContainers.EditPostComponent,
     },
     {
-        path: ':post',
+        path: 'post/:post',
         canActivate: [blogGuards.PostGuard],
         component: blogContainers.PostComponent,
     },
