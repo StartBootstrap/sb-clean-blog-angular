@@ -29,7 +29,7 @@ export class BlogService {
                 subHeading: 'Some explanation while reading this',
                 backgroundImage: 'https://startbootstrap.com/assets/img/sb-logo.svg',
                 meta: 'some meta',
-                slug: '/myID',
+                slug: '/post/myID',
             } as Post,
         ];
     }
@@ -60,7 +60,7 @@ export class BlogService {
         //     )
         //     .pipe(map((post) => post as Post));
 
-        const target = this.posts.find((p: Post) => p.slug === `/${postSlug}`);
+        const target = this.posts.find((p: Post) => p.slug === `/post/${postSlug}`);
         return of(target !== undefined ? target : null);
     }
 
