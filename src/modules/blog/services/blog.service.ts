@@ -35,6 +35,7 @@ export class BlogService {
     }
 
     getPosts$(): Observable<Post[]> {
+        // TODO put back HTTP calls
         // return this.http
         //     .get<ResultsPost[]>(`${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`)
         //     .pipe(
@@ -48,6 +49,7 @@ export class BlogService {
     }
 
     getPost$(postSlug: string): Observable<Post | null> {
+        // TODO put back HTTP calls
         // const params = new HttpParams().set('findBy', 'slug');
         // return this.http
         //     .get<ResultsPost>(
