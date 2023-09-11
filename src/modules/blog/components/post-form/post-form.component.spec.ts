@@ -1,6 +1,6 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA, TemplateRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BlogService } from '@modules/blog/services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -37,7 +37,7 @@ describe('PostFormComponent', () => {
             declarations: [TestHostComponent, PostFormComponent],
             imports: [NoopAnimationsModule],
             providers: [
-                FormBuilder,
+                UntypedFormBuilder,
                 { provide: BlogService, useValue: BlogServiceStub },
                 { provide: NgbModal, useValue: new ModalServiceStub() },
             ],

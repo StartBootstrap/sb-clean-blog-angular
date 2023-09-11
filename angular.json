@@ -147,7 +147,6 @@
       }
     }
   },
-  "defaultProject": "sb-clean-blog-angular",
   "cli": {
     "analytics": "1b38752a-78cd-445f-b84a-c73a1648eb69"
   }
