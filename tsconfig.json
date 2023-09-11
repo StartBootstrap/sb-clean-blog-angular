@@ -10,7 +10,6 @@
         "baseUrl": "src",
         "declaration": false,
         "downlevelIteration": true,
-        "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "importHelpers": true,
