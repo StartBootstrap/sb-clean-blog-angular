@@ -99,7 +99,12 @@ export class DemoInterceptor implements HttpInterceptor {
                     const updatePostPayload = request.body as UpdatePostPayload;
                     const updatePostID = request.url.match(/[\w-]+$/);
                     if (updatePostID) {
-                        const foundPost = this.posts.find((post) => post.id === updatePostID[0]);
+                        const foundPost: Post | undefined = this.posts.find(
+                            (post) => post.id === updatePostID[0]
+                        );
+                        if (foundPost === undefined) {
+                            return of(new HttpResponse({ status: 404, body: undefined }));
+                        }
                         updatePostPayload.backgroundImage = updatePostPayload.backgroundImage
                             ? `url("${updatePostPayload.backgroundImage}")`
                             : undefined;
