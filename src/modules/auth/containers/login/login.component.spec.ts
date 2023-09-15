@@ -1,6 +1,6 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from '@modules/auth/services';
 import { AuthServiceStub } from '@testing/stubs';
@@ -33,7 +33,7 @@ describe('LoginComponent', () => {
         TestBed.configureTestingModule({
             declarations: [TestHostComponent, LoginComponent],
             imports: [NoopAnimationsModule],
-            providers: [FormBuilder, { provide: AuthService, useValue: AuthServiceStub }],
+            providers: [UntypedFormBuilder, { provide: AuthService, useValue: AuthServiceStub }],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 

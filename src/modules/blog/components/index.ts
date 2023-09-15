@@ -1,9 +1,14 @@
 import { CleanBlogHeaderComponent } from './clean-blog-header/clean-blog-header.component';
-import { PostPreviewComponent } from './post-preview/post-preview.component';
-import { PostFormComponent } from './post-form/post-form.component';
 import { DemoInfoComponent } from './demo-info/demo-info.component';
+import { PostFormComponent } from './post-form/post-form.component';
+import { PostPreviewComponent } from './post-preview/post-preview.component';
 
-export const components = [CleanBlogHeaderComponent, PostPreviewComponent, PostFormComponent, DemoInfoComponent];
+export const components = [
+    CleanBlogHeaderComponent,
+    PostPreviewComponent,
+    PostFormComponent,
+    DemoInfoComponent,
+];
 
 export * from './clean-blog-header/clean-blog-header.component';
 export * from './post-preview/post-preview.component';

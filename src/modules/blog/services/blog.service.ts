@@ -8,11 +8,13 @@ import {
     ResultsPost,
     UpdatePostPayload,
 } from '@start-bootstrap/sb-clean-blog-shared-types';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class BlogService {
+    private posts: Post[];
+
     constructor(
         private http: HttpClient,
         private configService: ConfigService,
@@ -23,8 +25,8 @@ export class BlogService {
         return this.http
             .get<ResultsPost[]>(`${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`)
             .pipe(
-                map(posts =>
-                    (posts as Post[]).map(post => {
+                map((posts: ResultsPost[]) =>
+                    (posts as Post[]).map((post) => {
                         return post;
                     })
                 )
@@ -40,7 +42,7 @@ export class BlogService {
                     params,
                 }
             )
-            .pipe(map(post => post as Post));
+            .pipe(map((post) => post as Post));
     }
 
     createPost$(payload: CreatePostPayload): Observable<Post | Error> {
@@ -50,8 +52,8 @@ export class BlogService {
                 payload
             )
             .pipe(
-                tap(response => this.router.navigate([`/${response.slug}`])),
-                map(post => post as Post)
+                tap((response) => this.router.navigate([`/${response.slug}`])),
+                map((post) => post as Post)
             );
     }
 
@@ -61,7 +63,7 @@ export class BlogService {
                 `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${post.id}`,
                 payload
             )
-            .pipe(tap(response => this.router.navigate([`/${post.slug}`])));
+            .pipe(tap((response) => this.router.navigate([`/${post.slug}`])));
     }
 
     deletePost$(id: UUID): Observable<undefined | Error> {
@@ -69,6 +71,6 @@ export class BlogService {
             .delete<undefined>(
                 `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${id}`
             )
-            .pipe(tap(response => this.router.navigate([`/`])));
+            .pipe(tap((response) => this.router.navigate([`/`])));
     }
 }

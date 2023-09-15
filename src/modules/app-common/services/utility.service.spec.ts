@@ -31,7 +31,8 @@ describe('UtilityService', () => {
         });
         it('should getStoredObject', () => {
             spyOn(utilityService.localStorage, 'getItem').and.callFake(() => '{"b":2}');
-            expect({ ...utilityService.getStoredObject('test') }).toEqual({ b: 2 });
+            const obj: any = utilityService.getStoredObject('test');
+            expect({ ...obj }).toEqual({ b: 2 });
             expect(utilityService.localStorage.getItem).toHaveBeenCalledWith('test');
         });
         it('should return undefined if there is no string in local storage', () => {

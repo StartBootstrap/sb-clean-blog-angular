@@ -30,9 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.posts$ = this.blogService.getPosts$();
 
         this.subscription.add(
-            this.authUtilsService.isLoggedIn$().subscribe(isLoggedIn => {
+            this.authUtilsService.isLoggedIn$().subscribe((isLoggedIn: boolean) => {
                 this.isLoggedIn = isLoggedIn;
                 this.changeDetectorRef.detectChanges();
+                console.log('Logged in');
             })
         );
     }

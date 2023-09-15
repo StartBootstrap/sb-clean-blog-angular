@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { Post } from '@modules/blog/models';
 import { BlogService } from '@modules/blog/services';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +22,7 @@ export class PostFormComponent implements OnInit {
     // Random unsplash https://source.unsplash.com/1900x1200/
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private blogService: BlogService,
         private modalService: NgbModal
     ) {}
@@ -78,7 +78,7 @@ export class PostFormComponent implements OnInit {
 
     // heading
     get headingControl() {
-        return this.newPostForm.get('heading') as FormControl;
+        return this.newPostForm.get('heading') as UntypedFormControl;
     }
 
     get headingControlValid() {
@@ -94,7 +94,7 @@ export class PostFormComponent implements OnInit {
 
     // subHeading
     get subHeadingControl() {
-        return this.newPostForm.get('subHeading') as FormControl;
+        return this.newPostForm.get('subHeading') as UntypedFormControl;
     }
 
     get subHeadingControlValid() {
@@ -111,7 +111,7 @@ export class PostFormComponent implements OnInit {
 
     // backgroundImage
     get backgroundImageControl() {
-        return this.newPostForm.get('backgroundImage') as FormControl;
+        return this.newPostForm.get('backgroundImage') as UntypedFormControl;
     }
 
     get backgroundImageControlValid() {
@@ -128,7 +128,7 @@ export class PostFormComponent implements OnInit {
 
     // body
     get bodyControl() {
-        return this.newPostForm.get('body') as FormControl;
+        return this.newPostForm.get('body') as UntypedFormControl;
     }
 
     get bodyControlValid() {

@@ -18,6 +18,11 @@ export class CleanBlogHeaderComponent implements OnInit {
 
     constructor(private domSanitizer: DomSanitizer) {}
     ngOnInit() {
-        this.safeBackgroudImage = this.domSanitizer.bypassSecurityTrustStyle(this.backgroundImage);
+        this.updateBackground();
+    }
+
+    private updateBackground() {
+        const css = `background-image: url("${this.backgroundImage}")`;
+        this.safeBackgroudImage = this.domSanitizer.bypassSecurityTrustStyle(css);
     }
 }

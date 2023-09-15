@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { AuthService } from '@modules/auth/services';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {}
+    constructor(private fb: UntypedFormBuilder, private authService: AuthService) {}
     ngOnInit() {}
 
     onSubmit() {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     /* Accessor Methods */
 
     get passwordControl() {
-        return this.loginForm.get('password') as FormControl;
+        return this.loginForm.get('password') as UntypedFormControl;
     }
 
     get passwordControlValid() {
