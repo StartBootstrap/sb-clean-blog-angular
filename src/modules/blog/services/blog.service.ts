@@ -19,49 +19,30 @@ export class BlogService {
         private http: HttpClient,
         private configService: ConfigService,
         private router: Router
-    ) {
-        this.posts = [
-            {
-                id: 'myID',
-                body:
-                    '# Heading level 1 \n\n\n\n ## Sed ut perspiciatis unde omnis iste natus error sit voluptatem\n\naccusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit\n\n ## Qui in ea voluptate \nvelit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?',
-                heading: 'Good heading',
-                subHeading: 'Some explanation while reading this',
-                backgroundImage: 'https://startbootstrap.com/assets/img/sb-logo.svg',
-                meta: 'some meta',
-                slug: '/post/myID',
-            } as Post,
-        ];
-    }
+    ) {}
 
     getPosts$(): Observable<Post[]> {
-        // TODO put back HTTP calls
-        // return this.http
-        //     .get<ResultsPost[]>(`${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`)
-        //     .pipe(
-        //         map((posts: ResultsPost[]) =>
-        //             (posts as Post[]).map((post) => {
-        //                 return post;
-        //             })
-        //         )
-        //     );
-        return of(this.posts);
+        return this.http
+            .get<ResultsPost[]>(`${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts`)
+            .pipe(
+                map((posts: ResultsPost[]) =>
+                    (posts as Post[]).map((post) => {
+                        return post;
+                    })
+                )
+            );
     }
 
     getPost$(postSlug: string): Observable<Post | null> {
-        // TODO put back HTTP calls
-        // const params = new HttpParams().set('findBy', 'slug');
-        // return this.http
-        //     .get<ResultsPost>(
-        //         `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${postSlug}`,
-        //         {
-        //             params,
-        //         }
-        //     )
-        //     .pipe(map((post) => post as Post));
-
-        const target = this.posts.find((p: Post) => p.slug === `/post/${postSlug}`);
-        return of(target !== undefined ? target : null);
+        const params = new HttpParams().set('findBy', 'slug');
+        return this.http
+            .get<ResultsPost>(
+                `${this.configService.config.sbCleanBlogNodeURL}/api/latest/posts/${postSlug}`,
+                {
+                    params,
+                }
+            )
+            .pipe(map((post) => post as Post));
     }
 
     createPost$(payload: CreatePostPayload): Observable<Post | Error> {
